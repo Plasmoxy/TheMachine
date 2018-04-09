@@ -1,0 +1,11 @@
+bin/
+out/
+*.ser
+.idea/
+*.iml
+*.properties
+*.xml
+*.psd
+*.xls
+.DS_Store
+*.json

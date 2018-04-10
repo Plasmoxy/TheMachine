@@ -1,4 +1,5 @@
 import java.util.*
+import kotlin.concurrent.schedule
 
 fun main(args : Array<String>) {
 
@@ -8,7 +9,7 @@ fun main(args : Array<String>) {
 	println(h.add(1,2))
 
 	// java class
-	println(Math.add(5, 6))
+	println(Matematix.add(5, 6))
 
 	var obj = object {
 		var value = 4
@@ -24,10 +25,27 @@ fun main(args : Array<String>) {
 
 	println("arr[2] = " + arr[2])
 
-	print("daj daco :")
-	var sc = Scanner(System.`in`)
-	var a = sc.nextLine()
-	println(a)
+	var active = true
+
+
+	var printer = Runnable {
+		while (active) {
+			println("BUM")
+			Thread.sleep(1000) // 2 times pre thread
+		}
+	}
+
+	Thread(printer).start()
+	Thread(printer).start()
+
+	Timer("temp", true).schedule(2000 - 20) {
+		println("AFTER 2 SEC")
+		active = false
+	}
+
+	// two printers should together print 4 times "BUM" and the timer should stop them after 2 sec
+
+	println("main thread ended")
 
 
 }

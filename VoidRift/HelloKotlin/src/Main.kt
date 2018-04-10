@@ -13,6 +13,7 @@ fun main(args : Array<String>) {
 		var value = 4
 	}
 
+	//KYS FAGGOT
 	println(obj.value)
 
 

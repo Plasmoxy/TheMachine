@@ -1,3 +1,4 @@
+import java.util.*
 
 fun main(args : Array<String>) {
 
@@ -22,5 +23,11 @@ fun main(args : Array<String>) {
 	)
 
 	println("arr[2] = " + arr[2])
+
+	print("daj daco :")
+	var sc = Scanner(System.`in`)
+	var a = sc.nextLine()
+	println(a)
+
 
 }

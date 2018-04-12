@@ -1,24 +1,21 @@
 
 import io.socket.client.IO
 import io.socket.client.Socket
-import java.util.*
 
 val PORT = 5999
 val ADDRESS = "http://localhost:$PORT"
-val socket = IO.socket(ADDRESS)
-
-val scanner = Scanner(System.`in`)
+var socket = IO.socket(ADDRESS)
 
 var active = true
 
 fun slog(x : Any?) {
-	print("[ BACKEND ] ")
-	println(x)
+	println("[ JVM BACKEND ] $x")
 }
 
-fun exit() {
-	socket.disconnect()
+fun meanwhile(x: Any?) {
+	print("\n$x\nserver>")
 }
+
 
 fun main(args : Array<String>) {
 	slog("RUNNING NOW")
@@ -26,25 +23,50 @@ fun main(args : Array<String>) {
 	// bind socket events
 	socket.on(Socket.EVENT_CONNECT, {
 		
-		slog("CONNECTED")
+		meanwhile("CONNECTED")
+
+	}).on("xdBack", {
 		
-	}).on("testEvent", {
-		
-		
+		if (it.isNotEmpty()) {
+			meanwhile("XD MESSAGE BACK = ${it[0]}")
+		}
 		
 	}).on(Socket.EVENT_DISCONNECT, {
 		
-		slog("DISCONNECTED")
+		meanwhile("DISCONNECTED")
+
+		if(!active) {
+			slog("EXITING")
+			System.exit(0)
+		}
 		
 	})
 	
 	// connect to server
-	//socket.connect()
+	socket.connect()
 	
-	while(active) {
-		if (scanner.hasNext()) println("XD")
+	
+	// CONSOLE
+	println("=== CONSOLE (type e or exit to quit) ===")
+	consoleloop@while (active) {
+		
+		print("server>")
+		
+		val cmd = readLine()
+		if (cmd != null) {
+			
+			when (cmd) {
+				"e", "exit" -> active = false
+				"xd" -> socket.emit("xd", "LOLOLO")
+				else -> println("No such command.")
+			}
+			
+		}
+		
 	}
 	
-	exit()
+	
+	slog("DISCONNECTING")
+	socket.disconnect()
 	
 }

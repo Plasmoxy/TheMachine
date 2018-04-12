@@ -16,6 +16,10 @@ apply plugin: 'kotlin'
 apply plugin: 'application'
 mainClassName = 'MainKt'
 
+run {
+    standardInput = System.in
+}
+
 repositories {
     mavenCentral()
 }

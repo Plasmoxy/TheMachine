@@ -21,11 +21,19 @@ function serverHandler(req, res) {
 
 io.on('connection', function (client) {
   slog('CONNECTED')
+  
+  client.on('disconnect', function (client) {
+    slog('DISCONNECTED')
+  });
+  
+  client.on('xd', function(arg) {
+    console.log('XD MESSAGE = ' + arg)
+    client.emit('xdBack', 'BACC MY DUDE')
+  })
+  
 });
 
-io.on('disconnect', function (client) {
-  slog('DISCONNECTED')
-});
+
 
 
 // === everything binded, now start ... ===

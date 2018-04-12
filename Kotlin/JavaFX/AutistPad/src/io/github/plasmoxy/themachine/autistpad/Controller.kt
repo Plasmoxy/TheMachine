@@ -17,7 +17,6 @@ class Controller {
 	// called after annotated fields are injected
 	fun initialize() {
 		
-		
 		fchoser.extensionFilters.addAll(
 				EXTFILTER("BASIC OLD SCHUL TEXTZT FILE", "*.txt"),
 				EXTFILTER("LITERALLY ANYTHING ( i dont care :))) )", "*.*")

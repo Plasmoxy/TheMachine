@@ -5,12 +5,17 @@ import io.socket.client.Socket
 
 var socket = IO.socket("http://localhost:5999")
 
+fun slog(x : Any?) {
+	print("[ BACKEND ] ")
+	println(x)
+}
+
 fun main(args : Array<String>) {
-	Hello.hi()
+	slog("RUNNING NOW")
 
 	socket.on(Socket.EVENT_CONNECT, {
 		
-		socket.emit("foo", "hi")
+		slog("CONNECTED")
 		
 	}).on("event", {
 		
@@ -21,5 +26,7 @@ fun main(args : Array<String>) {
 		
 		
 	})
+	
+	socket.connect()
 	
 }

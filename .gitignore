@@ -6,3 +6,6 @@ _out/
 # GRADLE
 build/
 .gradle
+
+# NODE
+node_modules

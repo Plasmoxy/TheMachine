@@ -39,7 +39,11 @@ fun main(args : Array<String>) {
 	})
 	
 	// connect to server
-	socket.connect()
+	//socket.connect()
+	
+	while(active) {
+		if (scanner.hasNext()) println("XD")
+	}
 	
 	exit()
 	

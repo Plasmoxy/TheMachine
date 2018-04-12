@@ -1,5 +1,6 @@
 # IDEA
 _out/
+out/
 .idea/
 *.iml
 

@@ -13,14 +13,22 @@ function slog(x) {
     console.log('[server.js] ' + x)
 }
 
+// === HANDLERS ===
+
 function serverHandler(req, res) {
     // nothing
 }
 
-
 io.on('connection', function (client) {
-  slog('CLIENT CONNECTED')
+  slog('CONNECTED')
 });
+
+io.on('disconnect', function (client) {
+  slog('DISCONNECTED')
+});
+
+
+// === everything binded, now start ... ===
 
 slog('Listening on ' + PORT)
 app.listen(PORT)

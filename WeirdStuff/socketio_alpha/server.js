@@ -1,5 +1,5 @@
 
-const JAVA_RUN = '' // JAVA EXEC
+const JAVA_RUN = '' // JAVA EXEC ( currently manually )
 const PORT = 5999
 
 const express = require('express');

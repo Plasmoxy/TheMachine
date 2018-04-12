@@ -4,7 +4,7 @@ import io.socket.client.Socket
 
 val PORT = 5999
 val ADDRESS = "http://localhost:$PORT"
-var socket = IO.socket(ADDRESS)
+val socket = IO.socket(ADDRESS)
 
 var active = true
 
@@ -34,11 +34,6 @@ fun main(args : Array<String>) {
 	}).on(Socket.EVENT_DISCONNECT, {
 		
 		meanwhile("DISCONNECTED")
-
-		if(!active) {
-			slog("EXITING")
-			System.exit(0)
-		}
 		
 	})
 	
@@ -46,7 +41,6 @@ fun main(args : Array<String>) {
 	socket.connect()
 	
 	
-	// CONSOLE
 	println("=== CONSOLE (type e or exit to quit) ===")
 	consoleloop@while (active) {
 		
@@ -68,5 +62,10 @@ fun main(args : Array<String>) {
 	
 	slog("DISCONNECTING")
 	socket.disconnect()
+
+	Thread.sleep(1000) // delay for disconnect
+	
+	slog("=== EXITING ===")
+	System.exit(0)
 	
 }

@@ -1,4 +1,8 @@
 
+task runNode(type: Exec) {
+    commandLine("cmd", "/c", "npm run start")
+}
+
 buildscript {
     ext.kotlin_version = '1.2.30'
 
@@ -32,3 +36,4 @@ compileKotlin {
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
+

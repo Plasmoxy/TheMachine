@@ -1,12 +1,8 @@
-bin/
-out/
+# IDEA
 _out/
-*.ser
 .idea/
 *.iml
-*.properties
-*.xml
-*.psd
-*.xls
-.DS_Store
-*.json
+
+# GRADLE
+build/
+.gradle

@@ -3,7 +3,7 @@ _out/
 out/
 .idea/
 *.iml
-lib/
+
 # GRADLE
 build/
 .gradle

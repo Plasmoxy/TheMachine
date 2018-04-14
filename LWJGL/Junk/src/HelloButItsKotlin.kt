@@ -6,11 +6,15 @@ import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL11.*
 import org.lwjgl.system.MemoryStack.stackPush
 import org.lwjgl.system.MemoryUtil.NULL
+import org.lwjgl.opengl.GL11.glOrtho
+
 
 
 class App {
 	
 	private var window : Long = NULL
+	
+	var x = 0f
 	
 	fun run() {
 		println("Hello LWJGL " + Version.getVersion() + "!")
@@ -36,7 +40,7 @@ class App {
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE)
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE)
 		
-		window = glfwCreateWindow(300, 300, "Hello Kotlin LWJGL !", NULL, NULL)
+		window = glfwCreateWindow(800, 600, "Hello Kotlin LWJGL !", NULL, NULL)
 		
 		if ( window == NULL ) {
 			throw RuntimeException("Failed to create the GLFW window")
@@ -67,16 +71,52 @@ class App {
 	fun loop() {
 		
 		GL.createCapabilities()
+
+		glMatrixMode(GL_PROJECTION)
+		glLoadIdentity()
 		
-		glClearColor(1f, 1f, 0f, 0f)
+		
+		with(stackPush()) {
+			var pw = mallocInt(1)
+			var ph = mallocInt(1)
+
+			glfwGetWindowSize(window, pw, ph)
+			
+			var w = pw.get(0).toDouble()
+			var h = ph.get(0).toDouble()
+
+			glOrtho(-w, w, -h, h, -1.0, 1.0)
+		}
+		
+		
+		glfwSetWindowSizeCallback(window, { win, w, h ->
+			val aspect = w / h
+			glViewport(0, 0, w, h)
+			glOrtho(-50.0 * aspect, 50.0 * aspect, -50.0, 50.0, 1.0, -1.0)
+		})
+		
+		glMatrixMode(GL_MODELVIEW)
 		
 		while ( !glfwWindowShouldClose(window) ) {
+
 			glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
+
+			glColor3f(0.5f,0.5f,1.0f)
+			
+			glPushMatrix()
+			glTranslatef(20f, 20f, 0f)
+			glRecti(-50, -50, 50, 50)
+			glPopMatrix()
+
+			glColor3f(1f,1f,0f)
+			glRecti(-50, -50, 50, 50)
+			
 			glfwSwapBuffers(window)
 			glfwPollEvents()
 		}
 		
 	}
+	
 	
 	fun centerWindow(w : Long) {
 		

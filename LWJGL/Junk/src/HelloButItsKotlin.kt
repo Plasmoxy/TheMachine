@@ -6,13 +6,20 @@ import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL11.*
 import org.lwjgl.system.MemoryStack.stackPush
 import org.lwjgl.system.MemoryUtil.NULL
-import org.lwjgl.opengl.GL11.glOrtho
 
 
 
 class App {
 	
 	private var window : Long = NULL
+	
+	private var WIDTH = 0.0
+	private var HEIGHT = 0.0
+	private var ASPECT = 0.0
+	private var VIEWPORT_WIDTH = 3000.0
+	private var VIEWPORT_HEIGHT = 3000.0
+	
+	private var player = Player()
 	
 	var x = 0f
 	
@@ -84,19 +91,16 @@ class App {
 			
 			var w = pw.get(0).toDouble()
 			var h = ph.get(0).toDouble()
-
-			glOrtho(-w, w, -h, h, -1.0, 1.0)
+			
+			updateViewport(w, h)
 		}
 		
 		
 		glfwSetWindowSizeCallback(window, { win, w, h ->
-			val aspect = w / h
-			glViewport(0, 0, w, h)
-			glOrtho(-50.0 * aspect, 50.0 * aspect, -50.0, 50.0, 1.0, -1.0)
+			updateViewport(w.toDouble(), h.toDouble())
 		})
 		
-		glMatrixMode(GL_MODELVIEW)
-		
+		// MAINLOOP
 		while ( !glfwWindowShouldClose(window) ) {
 
 			glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
@@ -108,8 +112,7 @@ class App {
 			glRecti(-50, -50, 50, 50)
 			glPopMatrix()
 
-			glColor3f(1f,1f,0f)
-			glRecti(-50, -50, 50, 50)
+			player.draw()
 			
 			glfwSwapBuffers(window)
 			glfwPollEvents()
@@ -117,6 +120,18 @@ class App {
 		
 	}
 	
+	fun updateViewport(w : Double, h : Double) {
+		WIDTH = w
+		HEIGHT = h
+		ASPECT = w/h
+
+		var aspw = 0.5 * VIEWPORT_WIDTH * ASPECT
+		var hh = 0.5 * VIEWPORT_HEIGHT
+		
+		glLoadIdentity()
+		glOrtho(-aspw, aspw, -hh, hh, -1.0, 1.0)
+		glViewport(0, 0, w.toInt(), h.toInt())
+	}
 	
 	fun centerWindow(w : Long) {
 		

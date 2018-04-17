@@ -1,17 +1,15 @@
-import java.io.File;
-
 public class Utility {
 	
 	public Utility() {
-		System.loadLibrary("hello");
+		System.load("S:\\GIT\\TheMachine\\JNI\\JNIJunk\\src\\hello.dll");
 	}
 	
-	private native void hello();
+	private native int hello(int a, int b);
 
 	public static void main(String[] args) {
 		
 		Utility util = new Utility();
-		util.hello();
+		System.out.println(util.hello(4, 2));
 		
 	}
 	

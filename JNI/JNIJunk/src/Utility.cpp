@@ -2,6 +2,8 @@
 #include <iostream>
 #include "Utility.h"
 
-JNIEXPORT void JNICALL Java_Utility_hello(JNIEnv *, jobject) {
-    std::cout << "HELLO WORLD" << std::endl;
+JNIEXPORT jint JNICALL Java_Utility_hello(JNIEnv * env, jobject obj, jint a, jint b) {
+	
+    return a + b;
+    
 }

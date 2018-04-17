@@ -1,0 +1,8 @@
+﻿cl : Command line warning D9002: ignoring unknown option '-m64'
+  stdafx.cpp
+cl : Command line warning D9002: ignoring unknown option '-m64'
+  Testing.cpp
+  dllmain.cpp
+  Generating Code...
+     Creating library S:\GIT\TheMachine\JNI\VS\Testing\Debug\Testing.lib and object S:\GIT\TheMachine\JNI\VS\Testing\Debug\Testing.exp
+  Testing.vcxproj -> S:\GIT\TheMachine\JNI\VS\Testing\Debug\Testing.dll

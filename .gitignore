@@ -10,3 +10,5 @@ build/
 
 # NODE
 node_modules
+
+.vs

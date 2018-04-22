@@ -10,6 +10,7 @@ class Sequence {
 			f()
 		}
 	}
+	
 }
 
 fun main(args: Array<String>) {

@@ -25,8 +25,7 @@ implements InputProcessor
 	private Model redBoxModel;
 	private Model cyanBoxModel;
 	
-	private Player plr;
-	private ModelEntity box2;
+	private ModelInstance box;
 	
 	private FrameRate frameRate;
 	
@@ -45,7 +44,7 @@ implements InputProcessor
 		
 		// setup camera
 		camera = new GameCamera();
-		camera.position.set(0f, 0f, 10f);
+		camera.position.set(0f, 3f, 5f);
 		camera.lookAt(0f, 0f, 0f);
 
 		// setup environment and lighting
@@ -71,9 +70,7 @@ implements InputProcessor
 				VertexAttributes.Usage.Position|VertexAttributes.Usage.Normal
 		);
 
-		// entities
-		plr = new Player(new Vector3(0f, 0f, 0f), redBoxModel);
-		box2 = new ModelEntity(new Vector3(1f, -2f, 0f), cyanBoxModel);
+		box = new ModelInstance(cyanBoxModel);
 		
 	}
 
@@ -90,12 +87,11 @@ implements InputProcessor
 		camera.viewportHeight = graphics.getHeight();
 		camera.viewportWidth = graphics.getWidth();
 		
-		plr.update(dt);
+		box.transform.rotate(Vector3.Y, 30f*dt);
 
 		camera.update();
 		modelBatch.begin(camera);
-		modelBatch.render(plr.modeli);
-		modelBatch.render(box2.modeli);
+		modelBatch.render(box);
 		modelBatch.end();
 		
 	}

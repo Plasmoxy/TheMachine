@@ -1,3 +1,7 @@
+/*
+ * Ultra cool Entity class for LibGDX by Plasmoxy
+ */
+
 package io.github.plasmoxy.libgdx.test3d;
 
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
@@ -5,45 +9,65 @@ import com.badlogic.gdx.math.Vector3;
 
 public class Entity {
 	
-	// these shouldnt be accesible but whatever its ze POWER xDDD
+	// these shouldn't be accessible but whatever its ze POWER xDDD
 	public ModelInstance modeli;
 	public Vector3 pos = new Vector3();
-	public Vector3 rot = new Vector3();
+	public Vector3 rot = new Vector3(); // EULER ANGLES ~ corresponding to default axes analogy
 	
 	// METHODS : Constructors
 	
+	public Entity(Vector3 position) {
+		pos.set(position);
+	}
+	
 	public Entity(Vector3 position, ModelInstance modelInstance) {
+		this(position);
 		modeli = modelInstance;
-		setPos(position);
+		updateTransform();
 	}
 	
-	// METHODS : Position
-	
-	public void setPos(Vector3 newPos) {
-		pos.set(newPos);
-		updateTranslation();
-	}
+	// METHODS : Util ? Position
 
 	public void setPos(float x, float y, float z) {
 		pos.x = x;
 		pos.y = y;
 		pos.z = z;
-		updateTranslation();
+		updateTransform();
 	}
 	
-	public void addPos(Vector3 increment) {
-		pos.add(increment);
-		updateTranslation();
+	public void addPos(float dx, float dy, float dz) {
+		pos.x += dx;
+		pos.y += dy;
+		pos.z += dz;
+		updateTransform();
 	}
 	
-	public Vector3 getPos() {
-		return new Vector3(pos);
+	// METHODS : Util ? Rotation
+	
+	public void setRot(float x, float y, float z) {
+		rot.x = x;
+		rot.y = y;
+		rot.z = z;
+		updateTransform();
 	}
 	
-	public void updateTranslation() {
-		Vector3 dOrigin = modeli.transform.getTranslation(new Vector3()); // getTranslation MODIFIES object
-		Vector3 dTranslation = new Vector3(pos).sub(dOrigin); // MODIFIES newPos !!
-		modeli.transform.translate(dTranslation);
+	public void addRot(float dx, float dy, float dz) {
+		rot.x += dx;
+		rot.y += dy;
+		rot.z += dz;
+		updateTransform();
+	}
+	
+	// METHODS : Internal
+	
+	// updates translation of model instance
+	public void updateTransform() {
+		if (modeli != null ) {
+			modeli.transform.setToTranslation(pos);
+			modeli.transform.rotate(1, 0, 0, rot.x);
+			modeli.transform.rotate(0, 1, 0, rot.y);
+			modeli.transform.rotate(0, 0, 1, rot.z);
+		}
 	}
 	
 	

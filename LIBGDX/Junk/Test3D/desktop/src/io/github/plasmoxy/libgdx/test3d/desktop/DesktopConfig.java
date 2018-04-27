@@ -7,7 +7,7 @@ public class DesktopConfig extends LwjglApplicationConfiguration {
 	public DesktopConfig() {
 
 		//fullscreen = true;
-		foregroundFPS = 120;
+		foregroundFPS = 240;
 		vSyncEnabled = false;
 		
 	}

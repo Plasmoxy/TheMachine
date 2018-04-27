@@ -72,6 +72,9 @@ implements InputProcessor
 
 		box = new ModelInstance(cyanBoxModel);
 		
+		Entity e = new Entity(Vector3.Y, box);
+		System.out.println(e.pos);
+		
 	}
 
 	@Override

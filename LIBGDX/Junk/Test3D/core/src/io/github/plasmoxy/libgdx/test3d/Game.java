@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g3d.*;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector3;
 
 import static com.badlogic.gdx.Gdx.gl;
@@ -25,11 +26,9 @@ implements InputProcessor
 	private Model redBoxModel;
 	private Model cyanBoxModel;
 	
-	private ModelInstance box;
-	
 	private FrameRate frameRate;
 	
-	private final Vector3 YAXIS = new Vector3(0f, 1f, 0f);
+	public Entity box;
 	
 	@Override
 	public void create () {
@@ -69,12 +68,8 @@ implements InputProcessor
 				new Material(ColorAttribute.createDiffuse(Color.CYAN)),
 				VertexAttributes.Usage.Position|VertexAttributes.Usage.Normal
 		);
-
-		box = new ModelInstance(cyanBoxModel);
 		
-		Entity e = new Entity(Vector3.Y, box);
-		System.out.println(e.pos);
-		
+		box = new Entity(Vector3.Zero, new ModelInstance(cyanBoxModel));
 	}
 
 	@Override
@@ -90,11 +85,13 @@ implements InputProcessor
 		camera.viewportHeight = graphics.getHeight();
 		camera.viewportWidth = graphics.getWidth();
 		
-		box.transform.rotate(Vector3.Y, 30f*dt);
+		
+		
+		
 
 		camera.update();
 		modelBatch.begin(camera);
-		modelBatch.render(box);
+		modelBatch.render(box.modeli);
 		modelBatch.end();
 		
 	}

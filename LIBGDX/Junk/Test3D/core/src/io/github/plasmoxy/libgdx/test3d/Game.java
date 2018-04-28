@@ -4,6 +4,12 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.assets.AssetLoaderParameters;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.AssetLoader;
+import com.badlogic.gdx.assets.loaders.ModelLoader;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -11,9 +17,11 @@ import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g3d.*;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
+import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,18 +43,19 @@ implements InputProcessor
 	private ModelBatch modelBatch;
 	private ModelBuilder modelBuilder;
 	private Environment environment;
+	private AssetManager assets;
 	
 	public Map<String, Model> models = new HashMap<String, Model>();
 	public Map<String, Entity> entities = new HashMap<String, Entity>();
 	
 	private FrameRate fpsmeter;
 	
-	
 	private Entity bottomPlane;
 
 	private Entity cyanBox;
 	private Entity orangeBox;
 	private Entity handBox;
+	private Entity monkey, monkey2;
 	
 	// setup oscillator for 2 cubes
 	private float oscill_angle;
@@ -54,35 +63,40 @@ implements InputProcessor
 	
 	@Override
 	public void create () {
-		
+
+		// some utilities
+		modelBatch = new ModelBatch();
+		modelBuilder = new ModelBuilder();
+		assets = new AssetManager();
+
+
 		// setup cursor
 		Pixmap pm = new Pixmap(16 , 16, Pixmap.Format.RGBA8888);
 		Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
 		pm.dispose();
 		input.setCursorCatched(true);
 		
+		// setup input
+		input.setInputProcessor(this);
+
 		// setup first mouse position as camera rotation is relative to deltamouse and it can break
 		mouseX = input.getX();
 		mouseY = input.getY();
-		
-		// setup input
-		input.setInputProcessor(this);
-		
-		// setup camera
-		cam = new GameCamera();
-		
+
+
 		// setup environment and lighting
 		environment = new GameEnvironment();
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
 		environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
 		
+		// setup camera
+		cam = new GameCamera();
+		
 		// add fps meter
 		fpsmeter = new FrameRate();
 		fpsmeter.text[0] = "=== Test3D by Plasmoxy - LibGDX ===\n( move with mouse/touch + wasd/2touch, scroll to change fov )";
 		
-		// some model utilities
-		modelBatch = new ModelBatch();
-		modelBuilder = new ModelBuilder();
+		
 		
 		// modelz
 		models.put("bottomPlaneModel", modelBuilder.createBox(
@@ -109,7 +123,7 @@ implements InputProcessor
 				VertexAttributes.Usage.Position|VertexAttributes.Usage.Normal
 		));
 		
-		// -- GAME --
+		// -- CUSTOM --
 		cam.position.set(0, 3, 5);
 		cam.rotate(Vector3.X, -30f);
 		
@@ -127,6 +141,14 @@ implements InputProcessor
 
 		handBox = new Entity(new Vector3(), new ModelInstance(models.get("handBoxModel")));
 		entities.put("handBox", handBox);
+
+		monkey = new Entity(new Vector3(0, 1, 0), new ModelInstance(models.get("monkeyModel")));
+		entities.put("monkey", monkey);
+		monkey.modeli.transform.scale(0.5f, 0.5f, 0.5f);
+
+		monkey2 = new Entity(new Vector3(0, 0, -200f), new ModelInstance(models.get("monkeyModel")));
+		entities.put("monkey2", monkey2);
+		monkey2.modeli.transform.scale(150f, 150f, 150f);
 		
 	}
 

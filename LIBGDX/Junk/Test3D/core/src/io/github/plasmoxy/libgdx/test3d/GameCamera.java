@@ -10,6 +10,7 @@ public class GameCamera extends PerspectiveCamera {
 		super(75, graphics.getWidth(), graphics.getHeight());
 		near = 0.1f;
 		far = 300f;
+		fieldOfView = 90;
 	}
 	
 }

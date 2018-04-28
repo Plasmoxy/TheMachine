@@ -12,7 +12,7 @@ public class DesktopConfig extends LwjglApplicationConfiguration {
 		width = mode.width;
 		height = mode.height;
 		foregroundFPS = 240;
-		vSyncEnabled = false;
+		vSyncEnabled = true;
 		
 	}
 	

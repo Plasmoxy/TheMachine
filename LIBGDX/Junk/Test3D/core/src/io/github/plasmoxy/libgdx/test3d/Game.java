@@ -140,6 +140,9 @@ implements InputProcessor
 		cyanBox.addRot(180*dt, 90*dt, 70*dt);
 		orangeBox.addRot(110*dt, 130*dt, 98*dt);
 		
+		// display info to fpsmeter
+		fpsmeter.text[4] = 
+		
 		// === RENDER MODELS ===
 		fpscontroller.update(dt);
 		cam.update();
@@ -249,6 +252,12 @@ implements InputProcessor
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// reset relativity if first touch
+		if ( pointer == 0) {
+			mouseX = screenX;
+			mouseY = screenY;
+		}
+		
 		//speed += 1f;
 		return false;
 	}
@@ -260,7 +269,9 @@ implements InputProcessor
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		fpsRotate(screenX, screenY);
+		if ( pointer == 0) {
+			fpsRotate(screenX, screenY);
+		}
 		return false;
 	}
 
@@ -272,6 +283,8 @@ implements InputProcessor
 
 	@Override
 	public boolean scrolled(int amount) {
+		cam.fieldOfView += 2*amount;
+		fpsmeter.text[3] = "FOV = " + cam.fieldOfView;
 		return false;
 	}
 }

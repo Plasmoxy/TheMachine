@@ -43,6 +43,7 @@ implements InputProcessor
 	
 	
 	private float oscill_angle = 0f;
+	private float speed = 1f;
 	
 	@Override
 	public void create () {
@@ -91,7 +92,7 @@ implements InputProcessor
 		
 		// -- GAME --
 		plr = new Player(Vector3.Zero, camera);
-		plr.setPos(0, 3, 5);
+		plr.setPos(0, 2, 3);
 		camera.rotate(Vector3.X, -30f);
 		
 		bottomPlane = new Entity(Vector3.Zero, new ModelInstance(models.get("bottomPlaneModel")));
@@ -126,7 +127,7 @@ implements InputProcessor
 		float cang = oscill_angle + 180f;
 		orangeBox.setPos(2*sinDeg(cang), 1, 2*(cosDeg(cang)));
 		
-		oscill_angle += 180*dt;
+		oscill_angle += speed*90*dt;
 		
 		cyanBox.addRot(180*dt, 90*dt, 70*dt);
 		orangeBox.addRot(110*dt, 130*dt, 98*dt);
@@ -159,13 +160,14 @@ implements InputProcessor
 	public void resize(int w, int h) {
 		camera.viewportWidth = graphics.getWidth();
 		camera.viewportHeight = graphics.getHeight();
+		frameRate.resize(w, h);
 	}
 	
 	// -------- INPUT ----------
 
 	@Override
 	public boolean keyDown(int keycode) {
-		
+		speed += 1f;
 		return true;
 	}
 
@@ -181,7 +183,8 @@ implements InputProcessor
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		return false;
+		speed += 1f;
+		return true;
 	}
 
 	@Override

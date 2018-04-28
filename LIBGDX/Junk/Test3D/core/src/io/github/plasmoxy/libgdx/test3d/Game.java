@@ -46,10 +46,11 @@ implements InputProcessor
 
 	private Entity cyanBox;
 	private Entity orangeBox;
+	private Entity handBox;
 	
-	
+	// setup oscillator for 2 cubes
 	private float oscill_angle;
-	private float speed = 1f;
+	private float oscill_speed = 1f;
 	
 	@Override
 	public void create () {
@@ -77,6 +78,7 @@ implements InputProcessor
 		
 		// add fps meter
 		fpsmeter = new FrameRate();
+		fpsmeter.text[0] = "=== Test3D by Plasmoxy - LibGDX ===\n( move with mouse/touch + wasd/2touch, scroll to change fov )";
 		
 		// some model utilities
 		modelBatch = new ModelBatch();
@@ -100,6 +102,12 @@ implements InputProcessor
 				new Material(ColorAttribute.createDiffuse(Color.ORANGE)),
 				VertexAttributes.Usage.Position|VertexAttributes.Usage.Normal
 		));
+
+		models.put("handBoxModel", modelBuilder.createBox(
+				1f, 1f, 1f,
+				new Material(ColorAttribute.createDiffuse(Color.GOLD)),
+				VertexAttributes.Usage.Position|VertexAttributes.Usage.Normal
+		));
 		
 		// -- GAME --
 		cam.position.set(0, 3, 5);
@@ -116,6 +124,9 @@ implements InputProcessor
 
 		orangeBox = new Entity(new Vector3(-1, 1, 2), new ModelInstance(models.get("orangeBoxModel")));
 		entities.put("orangeBox", orangeBox);
+
+		handBox = new Entity(new Vector3(), new ModelInstance(models.get("handBoxModel")));
+		entities.put("handBox", handBox);
 		
 	}
 
@@ -129,19 +140,19 @@ implements InputProcessor
 		
 		// === CUSTOM ===
 		
-		
+		// boxez
 		cyanBox.setPos(2*sinDeg(oscill_angle), 1, 2*cosDeg(oscill_angle));
 		
 		float cang = oscill_angle + 180f;
 		orangeBox.setPos(2*sinDeg(cang), 1, 2*(cosDeg(cang)));
 		
-		oscill_angle += speed*90*dt;
+		oscill_angle += oscill_speed*90*dt;
 		
 		cyanBox.addRot(180*dt, 90*dt, 70*dt);
 		orangeBox.addRot(110*dt, 130*dt, 98*dt);
 		
 		// display info to fpsmeter
-		fpsmeter.text[4] = 
+		fpsmeter.text[6] = "CAM POSITION = " + cam.position;
 		
 		// === RENDER MODELS ===
 		fpscontroller.update(dt);
@@ -182,8 +193,8 @@ implements InputProcessor
 		int magX = Math.abs(mouseX - screenX);
 		int magY = Math.abs(mouseY - screenY);
 		
-		fpsmeter.text[0] = "mouseY=" + screenY;
-		fpsmeter.text[1] = "mouseX=" + screenX;
+		fpsmeter.text[4] = "mouseY=" + screenY;
+		fpsmeter.text[5] = "mouseX=" + screenX;
 
 		if (mouseX > screenX) {
 			cam.rotate(Vector3.Y, 1 * magX * rotSpeed);
@@ -218,7 +229,7 @@ implements InputProcessor
 	public boolean keyDown(int keycode) {
 		fpscontroller.keyDown(keycode);
 		
-		//speed += 1f;
+		//oscill_speed += 1f;
 		
 		switch (keycode) {
 			case Input.Keys.ESCAPE:
@@ -252,18 +263,33 @@ implements InputProcessor
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// reset relativity if first touch
-		if ( pointer == 0) {
-			mouseX = screenX;
-			mouseY = screenY;
+		switch (pointer) {
+			case 0:
+				// reset relativity if first touch
+				mouseX = screenX;
+				mouseY = screenY;
+				break;
+			case 1:
+				// simulate W
+				fpscontroller.keyDown(Input.Keys.W);
+				break;
 		}
 		
-		//speed += 1f;
+		//oscill_speed += 1f;
 		return false;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+		switch (pointer) {
+			case 1:
+				// simulate W
+				fpscontroller.keyUp(Input.Keys.W);
+				break;
+		}
+
+
 		return false;
 	}
 
@@ -284,7 +310,7 @@ implements InputProcessor
 	@Override
 	public boolean scrolled(int amount) {
 		cam.fieldOfView += 2*amount;
-		fpsmeter.text[3] = "FOV = " + cam.fieldOfView;
+		fpsmeter.text[7] = "FOV = " + cam.fieldOfView;
 		return false;
 	}
 }

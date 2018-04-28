@@ -183,8 +183,6 @@ implements InputProcessor
 			return;
 		}
 		
-		
-		
 		// === CUSTOM ===
 		
 		// boxez
@@ -342,15 +340,19 @@ implements InputProcessor
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		if ( pointer == 0) {
-			fpsRotate(screenX, screenY);
+		if (!loading) {
+			if ( pointer == 0) {
+				fpsRotate(screenX, screenY);
+			}
 		}
 		return false;
 	}
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		fpsRotate(screenX, screenY);
+		if (!loading) {
+			fpsRotate(screenX, screenY);
+		}
 		return false;
 	}
 

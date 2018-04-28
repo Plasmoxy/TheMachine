@@ -9,6 +9,7 @@ public class DesktopConfig extends LwjglApplicationConfiguration {
 
 		Graphics.DisplayMode mode = getDesktopDisplayMode();
 		fullscreen = true;
+		samples = 4;
 		width = mode.width;
 		height = mode.height;
 		foregroundFPS = 240;

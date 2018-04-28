@@ -40,6 +40,8 @@ implements InputProcessor
 	private int mouseY;
 	private float rotSpeed = 0.2f;
 	
+	private boolean loading = true;
+	
 	private ModelBatch modelBatch;
 	private ModelBuilder modelBuilder;
 	private Environment environment;
@@ -69,7 +71,6 @@ implements InputProcessor
 		modelBuilder = new ModelBuilder();
 		assets = new AssetManager();
 
-
 		// setup cursor
 		Pixmap pm = new Pixmap(16 , 16, Pixmap.Format.RGBA8888);
 		Gdx.graphics.setCursor(Gdx.graphics.newCursor(pm, 0, 0));
@@ -92,12 +93,17 @@ implements InputProcessor
 		// setup camera
 		cam = new GameCamera();
 		
-		// add fps meter
+		// add ze fps meter
 		fpsmeter = new FrameRate();
 		fpsmeter.text[0] = "=== Test3D by Plasmoxy - LibGDX ===\n( move with mouse/touch + wasd/2touch, scroll to change fov )";
 		
+		// load ze assets
+		assets.load("models/tree.g3db", Model.class);
+		assets.load("models/monkey.obj", Model.class);
 		
-		
+	}
+	
+	private void doneLoading() {
 		// modelz
 		models.put("bottomPlaneModel", modelBuilder.createBox(
 				5f, 0.1f, 5f,
@@ -122,14 +128,17 @@ implements InputProcessor
 				new Material(ColorAttribute.createDiffuse(Color.GOLD)),
 				VertexAttributes.Usage.Position|VertexAttributes.Usage.Normal
 		));
-		
+
+		models.put("monkeyModel", assets.get("models/monkey.obj", Model.class));
+		models.put("treeModel", assets.get("models/tree.g3db", Model.class));
+
 		// -- CUSTOM --
 		cam.position.set(0, 3, 5);
 		cam.rotate(Vector3.X, -30f);
-		
+
 		fpscontroller = new FirstPersonCameraController(cam);
 		fpscontroller.setVelocity(2f);
-		
+
 		bottomPlane = new Entity(Vector3.Zero, new ModelInstance(models.get("bottomPlaneModel")));
 		entities.put("bottomPlane", bottomPlane);
 
@@ -150,15 +159,31 @@ implements InputProcessor
 		entities.put("monkey2", monkey2);
 		monkey2.modeli.transform.scale(150f, 150f, 150f);
 		
+		Entity tree = new Entity(new Vector3(1.5f, 0.05f, -2), new ModelInstance(models.get("treeModel")));
+		entities.put("tree", tree);
+		tree.setRot(90f, 0, 0);
+		tree.modeli.transform.scale(0.5f, 0.5f, 0.5f);
+		
+		loading = false; // STOHMP LOADING :))))
 	}
 
 	@Override
 	public void render () {
 		float dt = Gdx.graphics.getDeltaTime();
-		
+
 		// clear matrix
 		gl.glClearColor(0, 0, 0, 1);
 		gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		
+		if (loading) {
+			if (assets.update()) {
+				doneLoading();
+			}
+			return;
+		}
+		
+		
 		
 		// === CUSTOM ===
 		

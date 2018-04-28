@@ -10,6 +10,8 @@ import com.badlogic.gdx.utils.TimeUtils;
 /**
  * A nicer class for showing framerate that doesn't spam the console
  * like Logger.log()
+ * 
+ * augmented by Plasmoxy
  *
  * @author William Hartman
  */
@@ -20,7 +22,8 @@ public class FrameRate implements Disposable{
 	private BitmapFont font;
 	private SpriteBatch batch;
 	private OrthographicCamera cam;
-
+	
+	public String[] text = new String[16];
 
 	public FrameRate() {
 		lastTimeCounted = TimeUtils.millis();
@@ -50,8 +53,12 @@ public class FrameRate implements Disposable{
 	}
 
 	public void render() {
+		StringBuilder sb = new StringBuilder();
+		for (String s : text) {
+			if (s != null) sb.append(s + "\n");
+		}
 		batch.begin();
-		font.draw(batch, (int)frameRate + " fps", 3, Gdx.graphics.getHeight() - 3);
+		font.draw(batch, "[ " + (int)frameRate + " fps ]\n" + sb, 3, Gdx.graphics.getHeight() - 3);
 		batch.end();
 	}
 

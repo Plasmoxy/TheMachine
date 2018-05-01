@@ -30,7 +30,7 @@ fun main(args : Array<String>) {
 
 	var printer = Runnable {
 		while (active) {
-			println("BUM")
+			println("BUdM")
 			Thread.sleep(1000) // 2 times pre thread
 		}
 	}

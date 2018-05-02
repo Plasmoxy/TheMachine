@@ -19,8 +19,8 @@ public class Sketch extends PApplet {
 		}
 
 		void step() {
-			float dx = random(-1, 1);
-			float dy = random(-1, 1);
+			float dx = random(-4, 4);
+			float dy = random(-4, 4);
 			x += dx;
 			y += dy;
 		}
@@ -35,6 +35,7 @@ public class Sketch extends PApplet {
 	@Override public void setup() {
 		background(0);
 		w = new Walker();
+		strokeWeight(5f);
 	}
 
 	@Override public void draw() {

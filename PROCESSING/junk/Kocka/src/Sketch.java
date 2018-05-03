@@ -36,11 +36,12 @@ public class Sketch extends PApplet {
 
 	@Override public void settings() {
 		size(800, 400, P3D);
+		
 	}
 
 	@Override public void setup() {
+		surface.setResizable(true);
 		background(0);
-		
 		for (int xi = 0; xi < 1000; xi += 50) {
 			for (int zi = 0; zi < 1000; zi += 50) {
 				boxes.add(new Box(20*sin(xi/100f)*cos(zi/100f), xi, 0, zi));

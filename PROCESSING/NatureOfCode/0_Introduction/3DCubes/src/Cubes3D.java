@@ -21,10 +21,6 @@ public class Cubes3D extends PApplet {
 		float fov = mouseY/parseFloat(width) * PI/2f;
 		float cameraZ = cameraY / tan(fov / 2.0f);
 		float aspect = parseFloat(width)/parseFloat(height);
-		if (mousePressed) {
-			aspect = aspect / 2.0f;
-		}
-
 		perspective(fov, aspect, cameraZ/10.0f, cameraZ*10.0f);
 
 		translate(width/2, height/2, 0);

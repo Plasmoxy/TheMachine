@@ -11,9 +11,10 @@ public class Sketch extends PApplet {
 	}
 
 	@Override public void setup() {
-		background(0);
+		
 	}
 
 	@Override public void draw() {
+		
 	}
 }

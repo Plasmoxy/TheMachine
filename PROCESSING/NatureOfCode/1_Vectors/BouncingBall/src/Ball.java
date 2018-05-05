@@ -37,8 +37,7 @@ public class Ball {
 			vel.y *= -1;
 		}
 		
-		pos.x += vel.x;
-		pos.y += vel.y;
+		pos.add(vel);
 	}
 	
 }

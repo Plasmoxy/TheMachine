@@ -95,7 +95,7 @@ implements InputProcessor
 		
 		// add ze fps meter
 		fpsmeter = new FrameRate();
-		fpsmeter.text[0] = "=== FPSMonkey by Plasmoxy - LibGDX(Java, cross-platform) ===\n( look with mouse/touch,move with wasd/secondtouch,\nscroll to change fov )";
+		fpsmeter.text[0] = "=== FPSMonkey 1.1 by Plasmoxy - LibGDX(Java, cross-platform) ===\n( look with mouse/touch,move with wasd/secondtouch,\nscroll to change fov )";
 		
 		// load ze assets
 		assets.load("models/tree.g3db", Model.class);

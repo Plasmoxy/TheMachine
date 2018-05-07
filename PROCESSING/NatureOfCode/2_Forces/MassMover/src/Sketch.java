@@ -93,6 +93,7 @@ public class Sketch extends PApplet {
 	@Override public void draw() {
 		background(200);
 		
+		/*
 		if (wind.x <= -2f) {
 			dwind = 0.005f;
 		}
@@ -103,10 +104,22 @@ public class Sketch extends PApplet {
 		
 		wind.x += dwind;
 		
+		*/
+		
 		fill(0);
 		text("Wind = " + wind.x, 50, 50);
 		
 		for (Mover m : movers) {
+			
+			// friction : F = -c*N*v
+			float c = 0.01f; // friction coeficient
+			float N = 0.3f; // normal
+			PVector f = m.v.copy();
+			f.normalize();
+			f.mult(-1);
+			f.mult(N);
+			
+			m.applyForce(f);
 			m.applyForce(wind);
 			m.applyForce(gravity);
 			m.move();

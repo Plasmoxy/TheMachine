@@ -10,15 +10,21 @@ public class Sketch extends PApplet {
 	
 	class Ball {
 		
-		PVector pos;
+		PVector origin, pos;
 		
-		Ball(float x, float y) {
-			pos = new PVector(x, y);
+		float freq; // f = 1/T
+		
+		Ball(float x, float y, float frequency) {
+			origin = new PVector(x, y);
+			pos = new PVector();
+			pos.set(origin);
+			freq = frequency;
 		}
 		
 		
 		void update() {
-			
+			pos.x = origin.x + 100*sin(TWO_PI * frameCount * freq);
+			pos.y = origin.y + 100*cos(TWO_PI * frameCount * freq);
 		}
 		
 		void draw() {
@@ -39,7 +45,7 @@ public class Sketch extends PApplet {
 	}
 
 	@Override public void setup() {
-		b = new Ball(width/2, height/2);
+		b = new Ball(width/2, height/2, 0.01f);
 		background(200);
 	}
 

@@ -97,7 +97,6 @@ public class Sketch extends PApplet {
 		mouse.x = mouseX; mouse.y = mouseY;
 		background(200);
 		
-		
 		if (gravityOn) v.applyForce(gravity);
 		
 		PVector dm = PVector.sub(mouse, v.pos);

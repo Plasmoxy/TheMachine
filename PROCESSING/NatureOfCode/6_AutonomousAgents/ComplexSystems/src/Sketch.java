@@ -113,7 +113,7 @@ public class Sketch extends PApplet {
 		}
 		
 		void applyBehaviors(List<Vehicle> others) {
-			PVector separateF = separate(vehicles);
+			PVector separateF = separate(others);
 			PVector seekF = seek(mouse);
 			
 			seekF.mult(0.5f);

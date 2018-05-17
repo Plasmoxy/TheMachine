@@ -15,7 +15,7 @@ public class Sketch extends PApplet {
 		Automaton() {
 			
 			cells = new int[width/cellWidth];
-			ruleset = new int[]{0, 1, 0, 1, 1, 0, 1, 0};
+			ruleset = new int[]{1, 0, 0, 1, 1, 0, 1, 0}; // to get binary rule ( 90, 30) count from left
 			
 			for (int i = 0; i < cells.length; i++) {
 				cells[i] = 0;

@@ -1,6 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PVector;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Sketch extends PApplet {
 		PVector pos;// position
 		PVector vel; // velocity
 		PVector acc; // acceleration
+		int vehicleColor = color(100);
 
 		Mover(float x, float y) {
 			pos = new PVector(x, y);
@@ -33,13 +35,23 @@ public class Sketch extends PApplet {
 
 		void display() {
 			pushStyle();
-			fill(50);
+			fill(vehicleColor);
 			ellipse(pos.x, pos.y, 30, 30);
 			popStyle();
 		}
 
 		void applyForce(PVector force) {
 			acc.add(force);
+		}
+		
+		void bounce(float minX, float maxX, float minY, float maxY) {
+			if (pos.x < minX || pos.x > maxX) {
+				vel.x *= -1;
+			}
+			
+			if (pos.y < minY || pos.y > maxY) {
+				vel.y *= -1;
+			}
 		}
 
 	}
@@ -50,15 +62,14 @@ public class Sketch extends PApplet {
 		float r = 5f;
 		float maxspeed = 5f;
 		float maxforce = 1f;
-		float separationLimit = 4*r; // how close to separate
-
+		
 		Vehicle(float x, float y) {
 			super(x, y);
 		}
 
 		PVector seek(PVector target) {
 			// (->)desv = (->)target - (->)pos
-			
+
 			PVector desv = PVector.sub(target , pos);
 
 			desv.normalize();
@@ -68,59 +79,48 @@ public class Sketch extends PApplet {
 			// F_steer = v_desired - v_current
 			PVector steeringForce = PVector.sub(desv, vel);
 			steeringForce.limit(maxforce);
-			
+
 			return steeringForce;
 		}
-		
-		PVector separate(List<Vehicle> others) {
-			
+
+		PVector separate(List<? extends Vehicle> others, float separationLimit) {
+
 			// mean = sum/elementsCount
-			
+
 			// a sum of UNIT vectors
 			PVector vectorSum = new PVector();
 			int vectorCount = 0;
-			
+
 			for (Vehicle o : others) {
 				if (this == o) break; // don't look at yourself !
-				
+
 				float d = PVector.dist(pos, o.pos); // distance
-				
+
 				if ( (d > 0) && (d < separationLimit)) {
 					PVector diff = PVector.sub(pos, o.pos);
 					diff.normalize();
 					diff.div(d); // the smaller the distance, the stronger the force
-					
+
 					vectorSum.add(diff);
 					vectorCount++;
 				}
 			}
-			
+
 			if (vectorCount > 0) {
 				// vectorSum.div(vectorCount);
 				// morph -> vectorSum is now the average vector
 				vectorSum.div(vectorCount);
-				
+
 				vectorSum.setMag(maxspeed); // set magnitude of the vector
 				// now its desired velocity
-				
+
 				// morph -> vectorSum is now steering force
 				// Fsteer = desv - vel
 				vectorSum.sub(vel);
 				vectorSum.limit(maxforce); // limit the force
 			}
-			
+
 			return vectorSum;
-		}
-		
-		void applyBehaviors(List<Vehicle> others) {
-			PVector separateF = separate(others);
-			PVector seekF = seek(mouse);
-			
-			seekF.mult(0.5f);
-			separateF.mult(3f);
-			
-			applyForce(separateF);
-			applyForce(seekF);
 		}
 
 		@Override void update() {
@@ -128,39 +128,133 @@ public class Sketch extends PApplet {
 		}
 
 		@Override void display() {
-			fill(150);
+			float theta = vel.heading() + PI/2;
+			fill(vehicleColor);
 			stroke(0);
 			pushMatrix();
 			translate(pos.x, pos.y);
-			ellipse(0, 0, 2*r, 2*r);
+			rotate(theta);
+			beginShape();
+			vertex(0, -r*2);
+			vertex(-r, r*2);
+			vertex(r, r*2);
+			endShape(CLOSE);
 			popMatrix();
 		}
 
 	}
 	
+	// boid == bird
 	
+	class Boid extends Vehicle {
+		Boid(float x, float y) {
+			super(x, y);
+		}
+		
+		void flock(List<? extends Boid> others) {
+			PVector sep = separate(others, 8*r);
+			PVector ali = align(others);
+			PVector coh = cohesion(others);
+			
+			sep.mult(1.5f);
+			ali.mult(1.0f);
+			coh.mult(1.0f);
+			
+			applyForce(sep);
+			applyForce(ali);
+			applyForce(coh);
+		}
+		
+		PVector align(List<? extends Boid> others) {
+			float neighborDist = 50; // distance to neighbor
+			
+			PVector sum = new PVector();
+			
+			int count = 0; // count of boids visible from this boid's view
+			for (Boid b : others) {
+				
+				float d = PVector.dist(pos, b.pos);
+				if ((d > 0) && (d < neighborDist)) {
+					sum.add(b.vel);
+					count++;
+				}
+			}
+			
+			if (count > 0) {
+				sum.div(count);
+				sum.setMag(maxspeed);
+
+				PVector steer = PVector.sub(sum, vel);
+				steer.limit(maxforce);
+				return steer;
+			} else {
+				return new PVector();
+			}
+			
+		}
+		
+		PVector cohesion(List<?extends Boid> others) {
+			float neighborDist = 100;
+			PVector sum = new PVector();
+			int count = 0;
+			
+			for (Boid b : others) {
+				float d = PVector.dist(pos, b.pos);
+				
+				if ((d > 0) && (d < neighborDist)) {
+					sum.add(b.pos);
+					count++;
+				}
+			}
+			
+			if (count > 0) {
+				sum.div(count);
+				return seek(sum);
+			} else {
+				return new PVector();
+			}
+		}
+		
+	}
+
+
 	PVector mouse;
-	List<Vehicle> vehicles = new LinkedList<>();
+	List<Boid> boids = new LinkedList<>();
+	
+	Boid player;
 
 	@Override public void settings() {
-		size(800, 600);
+		fullScreen();
 	}
 
 	@Override public void setup() {
 		for (int i = 0; i < 100; i++) {
-			vehicles.add(new Vehicle(random(width), random(height)));
+			boids.add(new Boid(random(width), random(height)));
 		}
+		player = new Boid(100, 100);
+		player.vehicleColor = color(255, 0, 0);
+		boids.add(player);
+		
 		mouse = new PVector(mouseX, mouseY);
 	}
 
 	@Override public void draw() {
 		mouse.x = mouseX; mouse.y = mouseY;
 		background(200);
-		
-		for (Vehicle v : vehicles) {
-			v.applyBehaviors(vehicles);
-			v.update();
-			v.display();
+
+		for (Boid b : boids) {
+			if (b == player) {
+				b.applyForce(b.seek(mouse));
+			} else {
+				b.flock(boids);
+			}
+			
+			b.bounce(0, width, 0, height);
+			b.update();
+			b.display();
 		}
+		
+		fill(0);
+		text("\nFlocking by Plasmoxy in Processing\nTHE WILL FLY WITH YOU ;)\npress esc to exit faggit\nthe red guy follows mouse", 50, 50);
 	}
 }

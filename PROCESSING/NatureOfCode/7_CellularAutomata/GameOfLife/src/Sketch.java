@@ -12,6 +12,7 @@ public class Sketch extends PApplet {
 		int[][] board;
 		final int columns;
 		final int rows;
+		final boolean cigani = false;
 		
 		GameOfLife(int columns, int rows) {
 			this.columns = columns;
@@ -56,7 +57,7 @@ public class Sketch extends PApplet {
 					
 					// OVERPOPULATION
 					// if alive and more than 3 neighbors, die
-					else if (board[x][y] == 1 && neighbors > 3) {
+					else if (board[x][y] == 1 && neighbors > 3 && !cigani) {
 						nextgen[x][y] = 0;
 					}
 					

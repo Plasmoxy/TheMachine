@@ -27,19 +27,35 @@ class Sketch : PApplet() {
 		}
 	}
 	
-	var m = Mover(30f, 30f)
-
+	lateinit var entities : Map<String, Mover>
+	
 	override fun settings() { size(400, 400) }
 
 	override fun setup() {
-		m.vel.x = 1f
+
+		entities = hashMapOf(
+				"m" to with(Mover(30f, 30f)) {
+					vel.x = 1f
+					vel.y = 1f
+					return@with this
+				},
+
+				"cool falling ball with absolutely unnecessary long name" to with(Mover(50f ,50f)) {
+					vel.y = 0.5f
+					return@with this
+				}
+		)
 	}
 
 	override fun draw() {
 		background(200)
 		
-		m.update()
-		m.display()
+		entities["m"]!!.vel.add(0.1f, 0.1f)
+		
+		for ( (_, e : Mover) in entities ) {
+			e.update()
+			e.display()
+		}
 	}
 	
 }

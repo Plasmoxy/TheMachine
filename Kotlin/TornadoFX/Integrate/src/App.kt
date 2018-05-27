@@ -6,7 +6,6 @@ import tornadofx.View
 
 class MainView : View() {
 	override val root : BorderPane by fxml("gui.fxml")
-	val mainBox : VBox by fxid("mainBox")
 	
 	init {
 		with (currentStage!!) {

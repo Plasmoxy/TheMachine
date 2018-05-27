@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #333;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox fx:id="mainBox" alignment="CENTER" fillWidth="false" style="-fx-background-color: #444;" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                  <JFXTextField focusColor="#ff0080" prefColumnCount="10" style="-fx-text-inner-color: #FFF;" unFocusColor="#ad00ff">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <JFXTextField focusColor="#dddddd" prefColumnCount="10" style="-fx-text-inner-color: #FFF;" unFocusColor="#686868">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXTextField>
+               </children>
+            </HBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="C">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="/">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="7">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="8">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="9">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="*">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="4">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="5">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="6">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="-">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="1">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="2">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="3">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="+">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="0">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #ddd;" text="=">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</BorderPane>

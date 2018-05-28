@@ -17,7 +17,7 @@
          <children>
             <HBox alignment="CENTER">
                <children>
-                  <JFXTextField fx:id="primaryText" focusColor="#ff0080" prefColumnCount="10" style="-fx-text-inner-color: #FFF;" unFocusColor="#ad00ff">
+                  <JFXTextField fx:id="primaryText" focusColor="#ff0080" onAction="#evaluateAction" prefColumnCount="10" style="-fx-text-inner-color: #FFF;" unFocusColor="#ad00ff">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -152,7 +152,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXButton onAction="#btnEqualsPressed" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #ddd;" text="=">
+                        <JFXButton onAction="#evaluateAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #ddd;" text="=">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>

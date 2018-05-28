@@ -14,6 +14,7 @@ class MainView : View() {
 	val primaryText : TextField by fxid()
 	val secondaryText : TextField by fxid()
 	
+	// fxml event routing, tornado will reflect these functions
 	fun btn0Pressed() = core.numBtn(0)
 	fun btn1Pressed() = core.numBtn(1)
 	fun btn2Pressed() = core.numBtn(2)
@@ -27,7 +28,7 @@ class MainView : View() {
 	
 	fun operatorPlusPressed() = core.operatorBtn('+')
 	
-	fun btnEqualsPressed() = core.evaluate()
+	fun evaluateAction() = core.evaluate()
 	fun btnClearPressed() = core.clear()
 	
 	init {

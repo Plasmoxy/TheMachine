@@ -1,17 +1,19 @@
 import javafx.application.Application
+import javafx.fxml.FXML
 import javafx.scene.control.TextField
 import javafx.scene.layout.BorderPane
 import tornadofx.App
 import tornadofx.View
 
 class MainView : View() {
+	
+	val core : Core
+	
+	// fxml
 	override val root : BorderPane by fxml()
-	
-	val core = Core(this)
-	
 	val primaryText : TextField by fxid()
 	val secondaryText : TextField by fxid()
-
+	
 	fun btn0Pressed() = core.numBtn(0)
 	fun btn1Pressed() = core.numBtn(1)
 	fun btn2Pressed() = core.numBtn(2)
@@ -30,6 +32,8 @@ class MainView : View() {
 			isResizable = false
 		}
 		title = "TornadoCalc"
+		
+		core = Core(this)
 	}
 }
 

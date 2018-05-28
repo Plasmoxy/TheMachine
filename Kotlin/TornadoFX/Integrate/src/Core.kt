@@ -1,6 +1,10 @@
 class Core(private val view : MainView) {
 	
-	var expression = ""
+	var expression = "INIT"
+	
+	init {
+		update()
+	}
 	
 	fun update() {
 		view.primaryText.text = expression

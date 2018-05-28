@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #333;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <VBox alignment="CENTER" fillWidth="false" style="-fx-background-color: #444;" BorderPane.alignment="CENTER">
@@ -30,7 +29,7 @@
             </HBox>
             <HBox alignment="CENTER">
                <children>
-                  <JFXTextField fx:id="secondaryText" alignment="CENTER_RIGHT" focusColor="#dddddd" prefColumnCount="10" style="-fx-text-inner-color: #FFF;" unFocusColor="#686868">
+                  <JFXTextField fx:id="secondaryText" alignment="CENTER_RIGHT" editable="false" focusColor="#dddddd" prefColumnCount="10" style="-fx-text-inner-color: #FFF;" unFocusColor="#686868">
                      <font>
                         <Font size="19.0" />
                      </font>

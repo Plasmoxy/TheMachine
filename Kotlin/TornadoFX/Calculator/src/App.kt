@@ -1,6 +1,7 @@
 import javafx.application.Application
 import javafx.scene.control.TextField
 import javafx.scene.layout.BorderPane
+import javafx.stage.Stage
 import tornadofx.App
 import tornadofx.View
 
@@ -27,21 +28,33 @@ class MainView : View() {
 	fun btnDotPressed() = core.primaryAppend(".")
 	
 	fun operatorPlusPressed() = core.primaryAppend("+")
+	fun operatorMinusPressed() = core.primaryAppend("-")
+	fun operatorMultiplyPressed() = core.primaryAppend("*")
+	fun operatorDividePressed() = core.primaryAppend("/")
 	
 	fun evaluateAction() = core.evaluate()
 	fun btnClearPressed() = core.clear()
 	
 	init {
 		with (currentStage!!) {
-			isResizable = false
+			isResizable = true
 		}
+		
 		title = "TornadoCalc"
 		
 		core = Core(this)
 	}
 }
 
-class MainApp : App(MainView::class)
+class MainApp : App(MainView::class) {
+	override fun start(stage: Stage) {
+		super.start(stage)
+		
+		// fix minimum size to current size
+		stage.minWidth = stage.width
+		stage.minHeight = stage.height
+	}
+}
 
 fun main(args: Array<String>) {
 	Application.launch(MainApp::class.java, *args)

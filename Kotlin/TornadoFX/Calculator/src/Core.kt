@@ -8,16 +8,19 @@ class Core(private val view : MainView) {
 	
 	fun clear() {
 		view.primaryText.text = ""
+		view.secondaryText.text = ""
 	}
 	
 	fun evaluate() {
+		val expression = view.primaryText.text.replace(" ", "")
+		
 		var expr = ArrayList<String>() // expression data
 		var index = 0
 		
 		expr.add("") // load first
 		
 		// parse to list
-		for (c : Char in view.primaryText.text) {
+		for (c : Char in expression) {
 			when (c) {
 				'+','-','*','/' -> {
 					index++
@@ -36,6 +39,8 @@ class Core(private val view : MainView) {
 				}
 			}
 		}
+		
+		print(expr)
 		
 		// smart iteration from back so operator operations won't have impact on our index
 		// first * and /
@@ -56,8 +61,9 @@ class Core(private val view : MainView) {
 		
 		// show result
 		view.secondaryText.text = expr[0]
-		view.secondaryText.positionCaret(7)
-		println(expr)
+		view.secondaryText.positionCaret(9)
+		
+		println(" -> $expr")
 	}
 	
 	private fun applyOperator(expr: ArrayList<String>, op: Char, pos: Int) {

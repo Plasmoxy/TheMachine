@@ -3,12 +3,13 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #333;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="250.0" style="-fx-background-color: #333;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <VBox alignment="CENTER" fillWidth="false" style="-fx-background-color: #444;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -17,7 +18,7 @@
          <children>
             <HBox alignment="CENTER">
                <children>
-                  <JFXTextField fx:id="primaryText" focusColor="#ff0080" onAction="#evaluateAction" prefColumnCount="10" style="-fx-text-inner-color: #FFF;" unFocusColor="#ad00ff">
+                  <JFXTextField fx:id="primaryText" focusColor="#ff0080" onAction="#evaluateAction" prefColumnCount="10" style="-fx-text-inner-color: #FFF;" unFocusColor="#00ffd6">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -43,25 +44,40 @@
                <children>
                   <HBox alignment="CENTER">
                      <children>
-                        <JFXButton onAction="#btnClearPressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="C">
+                        <JFXButton onAction="#btnClearPressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ff1744;" text="C" textAlignment="CENTER">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </JFXButton>
-                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;">
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" visible="false">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
-                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;">
+                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" visible="false">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
-                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="/">
+                        <JFXButton onAction="#operatorDividePressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="/">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                      </children>
                      <VBox.margin>
@@ -74,21 +90,33 @@
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                         <JFXButton fx:id="btn8" onAction="#btn8Pressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="8">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                         <JFXButton fx:id="btn9" onAction="#btn9Pressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="9">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
-                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="*">
+                        <JFXButton onAction="#operatorMultiplyPressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="*">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                      </children>
                   </HBox>
@@ -98,21 +126,33 @@
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                         <JFXButton fx:id="btn5" onAction="#btn5Pressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="5">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                         <JFXButton fx:id="btn6" onAction="#btn6Pressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="6">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
-                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="-">
+                        <JFXButton onAction="#operatorMinusPressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="-">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                      </children>
                   </HBox>
@@ -122,21 +162,33 @@
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                         <JFXButton fx:id="btn2" onAction="#btn2Pressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="2">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                         <JFXButton fx:id="btn3" onAction="#btn3Pressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="3">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                         <JFXButton onAction="#operatorPlusPressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text="+">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                      </children>
                   </HBox>
@@ -146,19 +198,28 @@
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                         <JFXButton onAction="#btnDotPressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text=".">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
-                        <JFXButton onAction="#evaluateAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #ddd;" text="=">
+                        <JFXButton onAction="#evaluateAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #00ffd6;" text="=" textAlignment="CENTER">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
                            <font>
-                              <Font size="13.0" />
+                              <Font size="14.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </JFXButton>
                      </children>
                   </HBox>

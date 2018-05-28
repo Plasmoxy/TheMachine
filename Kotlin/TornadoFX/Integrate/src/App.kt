@@ -25,7 +25,10 @@ class MainView : View() {
 	fun btn8Pressed() = core.numBtn(8)
 	fun btn9Pressed() = core.numBtn(9)
 	
+	fun operatorPlusPressed() = core.operatorBtn('+')
+	
 	fun btnEqualsPressed() = core.evaluate()
+	fun btnClearPressed() = core.clear()
 	
 	init {
 		with (currentStage!!) {

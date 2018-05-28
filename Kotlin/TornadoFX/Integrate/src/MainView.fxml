@@ -147,7 +147,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXButton prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;">
+                        <JFXButton onAction="#btnDotPressed" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #ddd;" text=".">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>

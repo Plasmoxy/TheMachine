@@ -3,17 +3,8 @@ import java.util.*
 
 class Core(private val view : MainView) {
 	
-	fun updateResult(x: Double) {
-		view.secondaryText.text = x.toString()
-	}
-	
-	
-	fun numBtn(n : Int) {
-		view.primaryText.text += n
-	}
-	
-	fun operatorBtn(op : Char) {
-		view.primaryText.text += op
+	fun primaryAppend(s: String) {
+		view.primaryText.text += s
 	}
 	
 	fun clear() {
@@ -21,21 +12,23 @@ class Core(private val view : MainView) {
 	}
 	
 	fun evaluate() {
-		var data = HashMap<Int, String>()
+		var expr = ArrayList<String>() // expression data
 		var index = 0
 		
-		// parse to indexmap
+		expr.add("") // load first
+		
+		// parse to list
 		for (c : Char in view.primaryText.text) {
 			when (c) {
 				'+','-','*','/' -> {
 					index++
-					data[index] = c.toString()
+					expr.add(c.toString()) // apply operator
 					index++
+					expr.add("") // load new string
 				}
 				
 				'0','1','2','3','4','5','6','7','8','9','.' -> {
-					if (data[index] == null) data[index] = ""
-					data[index] = data[index] + c
+					expr[index] = expr[index] + c
 				}
 				
 				else -> {
@@ -45,7 +38,64 @@ class Core(private val view : MainView) {
 			}
 		}
 		
-		println(data)
+		// smart iteration from back so operator operations won't have impact on our index
+		// first * and /
+		for (i in expr.lastIndex downTo 0) {
+			when (expr[i]) {
+				"*" -> applyOperator(expr, '*', i)
+				"/" -> applyOperator(expr, '/', i)
+			}
+		}
+
+		// repeat for + -
+		for (i in expr.lastIndex downTo 0) {
+			when (expr[i]) {
+				"+" -> applyOperator(expr, '+', i)
+				"-" -> applyOperator(expr, '-', i)
+			}
+		}
+		
+		// show result
+		view.secondaryText.text = expr[0]
+		view.secondaryText.positionCaret(7)
+		println(expr)
+	}
+	
+	private fun applyOperator(expr: ArrayList<String>, op: Char, pos: Int) {
+		expr.removeAt(pos) // pos is now second operand
+
+		// compute to first operand
+		try {
+			val A = expr[pos-1].toDouble()
+			val B = expr[pos].toDouble()
+			when (op) {
+				
+				'+' -> {
+					expr[pos-1] = (A + B).toString()
+				}
+				
+				'-' -> {
+					expr[pos-1] = (A - B).toString()
+				}
+
+				'*' -> {
+					expr[pos-1] = (A * B).toString()
+				}
+
+				'/' -> {
+					expr[pos-1] = (A / B).toString()
+				}
+			}
+		}
+		
+		catch (e: NumberFormatException) {
+			view.secondaryText.text = "Parse error"
+			return
+		}
+		
+		
+		// remove the second operand
+		expr.removeAt(pos)
 	}
 	
 }

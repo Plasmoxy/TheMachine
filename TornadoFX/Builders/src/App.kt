@@ -7,7 +7,7 @@ class MainView : View() {
 
 	val labelA = label("XD")
 	
-	val btnA = button("CLICK") {
+	val btnA = button("Random") {
 		vboxConstraints { margin = Insets(20.0) }
 		
 		setOnAction { 
@@ -16,13 +16,12 @@ class MainView : View() {
 	}
 	
 	override val root = vbox {
-		prefWidth = 200.0
-		prefHeight = 200.0
+		prefWidth = 300.0
+		prefHeight = 150.0
 		
-		paddingAll = 10
 		alignment = Pos.CENTER
 		
-		style = "-fx-background-color: #444; "
+		title = "random"
 		
 		add(labelA)
 		add(btnA)

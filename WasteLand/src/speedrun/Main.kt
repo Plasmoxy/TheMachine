@@ -1,5 +1,4 @@
 package speedrun
-
 import javafx.application.Application
 import tornadofx.*
 
@@ -15,18 +14,17 @@ class MainView : View() {
 		
 	}
 	
-	override val root = borderpane { 
-		
+	override val root = borderpane {
+
 		title = "Random"
-		
+
 		prefHeight = 200.0
 		prefWidth = 300.0
-		
+
 		center = btn
 	}
-	
-}
 
+}
 
 class MainApp : App(MainView::class)
 

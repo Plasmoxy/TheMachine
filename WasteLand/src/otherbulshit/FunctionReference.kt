@@ -1,4 +1,4 @@
-
+package otherbulshit
 class Counter(var a : Int) {
 	fun add(t : Int) {
 		a += t

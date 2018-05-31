@@ -1,4 +1,4 @@
-
+package otherbulshit
 class Human( var meno : String, 
 			 var vek : Int ) {
 	

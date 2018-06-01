@@ -1,12 +1,11 @@
 package speedrun
+
 import javafx.application.Application
 import tornadofx.*
 
 class MainView : View() {
 	
-	val btn = button("CLICC") {
-		
-		prefWidth = 100.0
+	val btn = button("RANDOM") {
 		
 		setOnAction {
 			text = Math.random().toString()
@@ -15,18 +14,19 @@ class MainView : View() {
 	}
 	
 	override val root = borderpane {
-
-		title = "Random"
-
+		
+		title = "random"
+		prefWidth = 200.0
 		prefHeight = 200.0
-		prefWidth = 300.0
-
+		
 		center = btn
 	}
-
+	
 }
 
-class MainApp : App(MainView::class)
+class MainApp : App(MainView::class) {
+	
+}
 
 fun main(args: Array<String>) {
 	Application.launch(MainApp::class.java)

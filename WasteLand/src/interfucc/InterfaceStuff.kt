@@ -1,4 +1,4 @@
-
+package interfucc
 // create fragment for printing
 interface Printer {
 	val printString : String

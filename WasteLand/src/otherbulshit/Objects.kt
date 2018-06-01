@@ -1,4 +1,4 @@
-
+package otherbulshit
 class Person(val name : String, var vek : Int) {
 	
 	fun greet() {

@@ -68,9 +68,8 @@ fun main(args: Array<String>) {
 	
 	// integrate the arc length function, DOESNT WORK FOR ARC of circle as for infinity
 	// println( 4*integrate_simple(circle, 0.0, 1.0, 10000) )
-	 
 	
 	var my_PI = 4 * integrate_trapezoid( circle, 0.0, 1.0, 1_000_000_000 )
-	println( "\nmy pi     = $my_PI\nnormal pi = ${PI}" )
+	println( "\nmy pi     = $my_PI\nnormal pi = $PI" )
 	
 }

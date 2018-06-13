@@ -16,7 +16,7 @@ class MainView : View() {
 	override val root = borderpane {
 		
 		title = "random"
-		prefWidth = 200.0
+		prefWidth = 300.0
 		prefHeight = 200.0
 		
 		center = btn

@@ -109,6 +109,8 @@ class Sketch : PApplet() {
 		}
 		
 		fun checkPhenotype(targetPhenotype : String) : String? {
+			
+			// scan the entire population and check for phenotype
 			for ( m in members ) {
 				val phen = m.getPhenotype()
 				if (phen == targetPhenotype) {
@@ -124,13 +126,13 @@ class Sketch : PApplet() {
 	
 	// custom vars
 	lateinit var population : GeneticPopulation
-	val phrase = "filip is faggot"
+	val phrase = "the password is hidden here"
 	var active = true
 	
 	override fun setup() {
 		surface.setTitle("Genetic algorithm phrase fitter by Plasmoxy")
-		frameRate(1000f)
-		population = GeneticPopulation(phrase, 100, 0.01f)
+		//frameRate(1000f)
+		population = GeneticPopulation(phrase, 1000, 0.01f)
 	}
 
 	override fun draw() {

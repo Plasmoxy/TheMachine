@@ -13,17 +13,54 @@ class Sketch : PApplet() {
 		}
 		
 		var matingPool = ArrayList<Rocket>()
-		var generation = 0
+		var generations = 0
 		
 		fun generate() {
-
+			
 			// perform selection according to target fitness
 			for (member in members) {
 				member.fit(target)
 			}
 			
+			// select to mating pool
+			matingPool.clear()
+			for (member in members) {
+				var n = (member.fitness * populationSize).toInt()
+
+				for (j in 0 until n) {
+					matingPool.add(member) // add references of member according to fitness
+				}
+			}
+
+			// reproduce
+			for ( i in members.indices ) {
+				// reproduction
+				// select indices
+				var a = random(matingPool.size.toFloat()).toInt()
+				var b = random(matingPool.size.toFloat()).toInt()
+
+				// get parents
+				// perhaps check if parents not same object ? ( gains not that much efficiency )
+				var parentA = matingPool[a]
+				var parentB = matingPool[b]
+
+				var child = Rocket(rocketLifetime)
+				child.dna = parentA.crossover(parentB.dna)
+				
+				// mutate child
+				//child.mutate(mutationRate)
+
+				members[i] = child
+			}
 			
+			generations++
 			
+		}
+		
+		fun live() {
+			for (m in members) {
+				m.run()
+			}
 		}
 		
 	}
@@ -53,6 +90,13 @@ class Sketch : PApplet() {
 			vel.add(acc)
 			pos.add(vel)
 			acc.mult(0f)
+		}
+		
+		fun draw() {
+			pushStyle()
+			color(0)
+			ellipse(pos.x, pos.y, 10f, 10f)
+			popStyle()
 		}
 		
 		fun run() {
@@ -89,13 +133,18 @@ class Sketch : PApplet() {
 		
 	}
 	
+	
+	val LIFETIME = 100
+	var lifeCounter = 0
+	
+	lateinit var population : RocketPopulation
 
 	override fun settings() {
 		size(400, 400)
 	}
 
 	override fun setup() {
-		
+		population = RocketPopulation(1, 0.01f, LIFETIME, PVector(100f, 100f))
 	}
 
 	override fun draw() {

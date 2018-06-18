@@ -3,13 +3,15 @@ import processing.core.PVector
 
 class Sketch : PApplet() {
 
-	inner class RocketPopulation(val populationSize : Int, 
+	inner class RocketPopulation(val initPos : PVector,
+	                             val populationSize : Int,
 	                             val mutationRate : Float,
 	                             val rocketLifetime : Int,
 	                             val target : PVector) {
 		
 		var members = Array(populationSize) {
-			Rocket(rocketLifetime)
+			// ACHTUNG -> pos random
+			Rocket(PVector(random(150f, 250f), random(150f, 250f)), rocketLifetime)
 		}
 		
 		var matingPool = ArrayList<Rocket>()
@@ -44,11 +46,11 @@ class Sketch : PApplet() {
 				var parentA = matingPool[a]
 				var parentB = matingPool[b]
 
-				var child = Rocket(rocketLifetime)
+				var child = Rocket(initPos, rocketLifetime)
 				child.dna = parentA.crossover(parentB.dna)
 				
 				// mutate child
-				//child.mutate(mutationRate)
+				child.mutate(mutationRate)
 
 				members[i] = child
 			}
@@ -72,8 +74,8 @@ class Sketch : PApplet() {
 		}
 	}
 	
-	inner class Rocket(val lifetime : Int) {
-		var pos = PVector()
+	inner class Rocket(var pos : PVector,
+	                   val lifetime : Int) {
 		var vel = PVector()
 		var acc = PVector()
 		
@@ -94,8 +96,8 @@ class Sketch : PApplet() {
 		
 		fun draw() {
 			pushStyle()
-			color(0)
-			ellipse(pos.x, pos.y, 10f, 10f)
+			fill(0)
+			ellipse(pos.x, pos.y, 2f, 2f)
 			popStyle()
 		}
 		
@@ -107,7 +109,7 @@ class Sketch : PApplet() {
 		
 		fun fit(target : PVector) {
 			var d = PVector.dist(pos, target)
-			fitness = pow(1/d, 2f)
+			fitness = 1/d
 		}
 
 		fun crossover(partner : DNA) : DNA {
@@ -134,7 +136,7 @@ class Sketch : PApplet() {
 	}
 	
 	
-	val LIFETIME = 100
+	val LIFETIME = 200
 	var lifeCounter = 0
 	
 	lateinit var population : RocketPopulation
@@ -144,10 +146,24 @@ class Sketch : PApplet() {
 	}
 
 	override fun setup() {
-		population = RocketPopulation(1, 0.01f, LIFETIME, PVector(100f, 100f))
+		population = RocketPopulation(PVector(200f, 200f), 10, 0.01f, LIFETIME, PVector(100f, 100f))
 	}
 
 	override fun draw() {
+		
+		background(200)
+		
+		if (lifeCounter < LIFETIME ) {
+			population.live()
+			lifeCounter++
+		} else {
+			lifeCounter = 0
+			population.generate()
+		}
+		
+		for (rocket in population.members) {
+			rocket.draw()
+		}
 		
 	}
 	

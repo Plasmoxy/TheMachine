@@ -126,7 +126,7 @@ class Sketch : PApplet() {
 	
 	// custom vars
 	lateinit var population : GeneticPopulation
-	val phrase = "the password is hidden here"
+	val phrase = "abcdefghijklmnopqrstuvwxyz"
 	var active = true
 	
 	override fun setup() {

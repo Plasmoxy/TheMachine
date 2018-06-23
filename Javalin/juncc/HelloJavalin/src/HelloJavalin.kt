@@ -1,7 +1,7 @@
 import io.javalin.Javalin
 import j2html.TagCreator.*
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 object ResLoader {
 	fun read(name: String) : String {

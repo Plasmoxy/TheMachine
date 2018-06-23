@@ -3,12 +3,9 @@ import j2html.TagCreator.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-class ResourceLoader {
-	companion object {
-		fun read(name: String) : String {
-			return javaClass.getResource(name).readText()
-		}
+object ResLoader {
+	fun read(name: String) : String {
+		return javaClass.getResource(name).readText()
 	}
 }
 
@@ -23,7 +20,7 @@ fun main(args: Array<String>) {
 						SimpleDateFormat("HH:mm:ss").format(Date())
 				),
 				
-				style(ResourceLoader.read("style.css"))
+				style(ResLoader.read("style.css"))
 		).render())
 	}
 	

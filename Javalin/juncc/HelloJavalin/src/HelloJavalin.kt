@@ -11,7 +11,9 @@ object ResLoader {
 
 fun main(args: Array<String>) {
 	
-	val app = Javalin.start(80)
+	val app = Javalin.create()
+			.port(getHerokuAssignedPort())
+			.start()
 	
 	app.get("/") {
 		it.html(div(attrs(".maincontent"),
@@ -24,4 +26,11 @@ fun main(args: Array<String>) {
 		).render())
 	}
 	
+}
+
+private fun getHerokuAssignedPort(): Int {
+	val processBuilder = ProcessBuilder()
+	return if (processBuilder.environment()["PORT"] != null) {
+		Integer.parseInt(processBuilder.environment()["PORT"])
+	} else 7000
 }

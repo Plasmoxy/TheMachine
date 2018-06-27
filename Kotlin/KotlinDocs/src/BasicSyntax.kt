@@ -17,7 +17,4 @@ fun main(args: Array<String>) {
 	var name : String by observable("") { _, _, x -> println("The name is $x") }
 	name = "Seb"
 	
-	
-	
-	
 }

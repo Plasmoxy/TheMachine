@@ -6,7 +6,8 @@ import java.net.ServerSocket
 import java.net.Socket
 import kotlin.concurrent.thread
 
-class Server(val port: Int, val router: (String) -> Unit) {
+class Server(val port: Int,
+             val router: (String, ClientHandler) -> Unit) {
 	
 	private val serverSocket = ServerSocket(port)
 	var active = true
@@ -20,23 +21,26 @@ class Server(val port: Int, val router: (String) -> Unit) {
 		println("[Server] listening ...")
 		
 		while (active) {
-			val client = serverSocket.accept()
-			thread { ClientHandler(this, client).run() } // pass client to handler with its thread
+			val clientSocket = serverSocket.accept()
+			thread { ClientHandler(this, clientSocket).run() } // pass client to handler with its thread
 		}
 	}
 	
 }
 
-class ClientHandler(private val server: Server, private val client: Socket) : Closeable {
+class ClientHandler(private val server: Server, 
+                    private val socket: Socket) : Closeable {
 	
-	private val reader = BufferedReader(InputStreamReader((client.getInputStream())))
-	private val writer = PrintWriter(client.getOutputStream(), true)
+	private val reader = BufferedReader(InputStreamReader((socket.getInputStream())))
+	private val writer = PrintWriter(socket.getOutputStream(), true)
 	
 	private var active = true
 	
+	val address = socket.inetAddress.hostAddress
+	
 	fun run() {
 
-		println("[ClientHandler] ${client.inetAddress.hostAddress} opened connection")
+		println("[ClientHandler] ${socket.inetAddress.hostAddress} opened connection")
 		
 		use {
 			while (active) {
@@ -46,22 +50,25 @@ class ClientHandler(private val server: Server, private val client: Socket) : Cl
 					active = false
 					break
 				}
-
-				//println("<${client.inetAddress.hostAddress}> ${data}")
-				synchronized (server) {
-					server.router(data)
-				}
 				
+				synchronized (server) {
+					server.router(data, this)
+				}
 				
 			}
 		}
 	}
 	
+	fun send(msg: String) {
+		writer.println(msg)
+	}
+	
 	override fun close() {
+		active = false
 		reader.close()
 		writer.close()
-		client.close()
-		println("[ClientHandler] ${client.inetAddress.hostAddress} closed connection")
+		socket.close()
+		println("[ClientHandler] ${socket.inetAddress.hostAddress} closed connection")
 	}
 	
 }

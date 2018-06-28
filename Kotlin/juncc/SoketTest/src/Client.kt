@@ -1,8 +1,6 @@
-import java.io.BufferedReader
-import java.io.Closeable
-import java.io.InputStreamReader
-import java.io.PrintWriter
+import java.io.*
 import java.net.Socket
+import kotlin.concurrent.thread
 
 class Client(val serverAddress : String, serverPort : Int) : Closeable {
 
@@ -11,9 +9,26 @@ class Client(val serverAddress : String, serverPort : Int) : Closeable {
 	val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
 	
 	fun run() {
-		writer.println("hello")
-		writer.flush()
-		close()
+
+		thread {
+			try {
+				while(true) {
+					println(reader.readLine())
+				}
+			}
+			
+			catch(ex: IOException) {
+				println(ex.message)
+			}
+			
+			close()
+		}
+		
+		use {
+
+			writer.println(readLine())
+			
+		}
 	}
 	
 	override fun close() {

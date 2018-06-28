@@ -1,21 +1,22 @@
 import java.io.BufferedReader
+import java.io.Closeable
 import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.net.Socket
 
-class Client(val serverAddress : String, serverPort : Int) {
+class Client(val serverAddress : String, serverPort : Int) : Closeable {
 
 	val socket = Socket(serverAddress, serverPort)
-	val writer = PrintWriter(socket.getOutputStream())
+	val writer = PrintWriter(socket.getOutputStream(), true)
 	val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
 	
 	fun run() {
 		writer.println("hello")
 		writer.flush()
-		shutdown()
+		close()
 	}
 	
-	fun shutdown() {
+	override fun close() {
 		writer.close()
 		reader.close()
 		socket.close()

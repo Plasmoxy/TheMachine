@@ -1,20 +1,12 @@
 import java.io.BufferedReader
+import java.io.Closeable
 import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.net.ServerSocket
 import java.net.Socket
 import kotlin.concurrent.thread
 
-
-class MainModel {
-	
-	var a = 0
-	
-	
-	
-}
-
-class Server(val port: Int, var model: MainModel) {
+class Server(val port: Int, val router: (String) -> Unit) {
 	
 	private val serverSocket = ServerSocket(port)
 	var active = true
@@ -29,16 +21,16 @@ class Server(val port: Int, var model: MainModel) {
 		
 		while (active) {
 			val client = serverSocket.accept()
-			thread { ClientHandler(client, model).run() } // pass client to handler with its thread
+			thread { ClientHandler(this, client).run() } // pass client to handler with its thread
 		}
 	}
 	
 }
 
-class ClientHandler(private val client: Socket, private val model: MainModel) {
+class ClientHandler(private val server: Server, private val client: Socket) : Closeable {
 	
 	private val reader = BufferedReader(InputStreamReader((client.getInputStream())))
-	private val writer = PrintWriter(client.getOutputStream())
+	private val writer = PrintWriter(client.getOutputStream(), true)
 	
 	private var active = true
 	
@@ -46,38 +38,26 @@ class ClientHandler(private val client: Socket, private val model: MainModel) {
 
 		println("[ClientHandler] ${client.inetAddress.hostAddress} opened connection")
 		
-		try {
+		use {
 			while (active) {
 				val data = reader.readLine()
 				
-				when (data) {
-					
-					"hello" -> {
-						println("------ CLIENT SAYS HELLO ---------")
-					}
-					
-					"increment" -> {
-						model
-					}
-					
-					null -> {
-						shutdown()
-						active = false
-					}
-					
-					
+				if (data == null) {
+					active = false
+					break
 				}
+
+				//println("<${client.inetAddress.hostAddress}> ${data}")
+				synchronized (server) {
+					server.router(data)
+				}
+				
 				
 			}
 		}
-		
-		catch(ex: Exception) {
-			ex.printStackTrace()
-			shutdown()
-		}
 	}
 	
-	fun shutdown() {
+	override fun close() {
 		reader.close()
 		writer.close()
 		client.close()

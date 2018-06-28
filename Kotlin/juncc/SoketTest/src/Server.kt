@@ -1,30 +1,38 @@
-import java.io.BufferedReader
-import java.io.Closeable
-import java.io.InputStreamReader
-import java.io.PrintWriter
+// lambda routing java socket server by Plasmoxy
+
+
+import java.io.*
 import java.net.ServerSocket
 import java.net.Socket
 import kotlin.concurrent.thread
 
-class Server(val port: Int,
-             val router: (String, ClientHandler) -> Unit) {
+open class Server(val port: Int) {
 	
 	private val serverSocket = ServerSocket(port)
-	var active = true
 	
-	init {
-		println("[Server] created at port $port")
-	}
+	var active = true // to control server
+	
+	// routing
+	var onMessage: (msg: String, client: ClientHandler) -> Unit = {_,_->}
+	var onConnect: (client: ClientHandler) -> Unit = {}
+	var onDisconnect: (client: ClientHandler) -> Unit = {}
+
+	var clients = listOf<ClientHandler>()
 	
 	fun listen() {
-		
-		println("[Server] listening ...")
-		
 		while (active) {
 			val clientSocket = serverSocket.accept()
 			thread { ClientHandler(this, clientSocket).run() } // pass client to handler with its thread
 		}
 	}
+
+	fun broadcast(msg: String) {
+		for (c in clients) {
+			c.send(msg)
+		}
+	}
+	
+	
 	
 }
 
@@ -39,24 +47,33 @@ class ClientHandler(private val server: Server,
 	val address = socket.inetAddress.hostAddress
 	
 	fun run() {
-
-		println("[ClientHandler] ${socket.inetAddress.hostAddress} opened connection")
 		
-		use {
+		synchronized(server) {
+			server.clients += this
+			server.onConnect(this)
+		}
+		
+		try {
 			while (active) {
 				val data = reader.readLine()
-				
+
 				if (data == null) {
 					active = false
 					break
 				}
-				
+
 				synchronized (server) {
-					server.router(data, this)
+					server.onMessage(data, this)
 				}
-				
+
 			}
 		}
+		
+		catch (ex: IOException) {
+			println("<$address> <${ex.message}>")
+		}
+		
+		finally { close() }
 	}
 	
 	fun send(msg: String) {
@@ -68,7 +85,11 @@ class ClientHandler(private val server: Server,
 		reader.close()
 		writer.close()
 		socket.close()
-		println("[ClientHandler] ${socket.inetAddress.hostAddress} closed connection")
+		
+		synchronized(server) {
+			server.clients -= this
+			server.onDisconnect(this)
+		}
 	}
 	
 }

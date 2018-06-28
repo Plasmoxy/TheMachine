@@ -1,15 +1,11 @@
+
+
+
 fun main(args: Array<String>) {
 	
-	var a = 0
-	
-	val server = Server(9999) { data, client ->
+	val server = ChatServer(9999)
 
-		println("<${client.address}> $data")
-		client.send("<${client.address}> $data")
-		
-	}
-	
-	
+	println("-- server up --")
 	server.listen()
 	
 }

@@ -1,5 +1,4 @@
 import io.javalin.Javalin
-import j2html.TagCreator.*
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -13,17 +12,19 @@ fun main(args: Array<String>) {
 	
 	val app = Javalin.create()
 			.port(getHerokuAssignedPort())
+			.enableStaticFiles("public")
 			.start()
+			
 	
 	app.get("/") {
-		it.html(div(attrs(".maincontent"),
-				
-				span(attrs(".time"),
-						SimpleDateFormat("HH:mm:ss").format(Date())
-				),
-				
-				style(ResLoader.read("style.css"))
-		).render())
+		
+		var initStr = ResLoader.read("index.html")
+		var styleStr=  ResLoader.read("public/style.css")
+		
+		initStr = initStr.replace("@time", SimpleDateFormat("HH:mm:ss").format(Date()))
+		initStr = initStr.replace("@mainstyle", styleStr)
+		
+		it.html(initStr)
 	}
 	
 }

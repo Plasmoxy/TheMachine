@@ -92,4 +92,12 @@ class ClientHandler(private val server: Server,
 		}
 	}
 	
+	fun broadcast(msg: String) {
+		synchronized(server) {
+			for (c in server.clients) {
+				if (c != this) c.send(msg)
+			}
+		}
+	}
+	
 }

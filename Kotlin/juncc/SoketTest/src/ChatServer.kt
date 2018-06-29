@@ -22,7 +22,7 @@ class ChatServer(port: Int) : Server(port) {
 
 
 			println(clientInfoMsg)
-			broadcast(clientInfoMsg)
+			client.broadcast(clientInfoMsg)
 			
 			if (msg.startsWith(nc)) msg.substring(nc.length).run {
 				

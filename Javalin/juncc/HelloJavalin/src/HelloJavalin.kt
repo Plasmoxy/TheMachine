@@ -18,11 +18,12 @@ fun main(args: Array<String>) {
 	
 	app.get("/") {
 		
+		println("${it.ip()} GET /")
+		
 		var initStr = ResLoader.read("index.html")
 		var styleStr=  ResLoader.read("public/style.css")
 		
-		initStr = initStr.replace("@time", SimpleDateFormat("HH:mm:ss").format(Date()))
-		initStr = initStr.replace("@mainstyle", styleStr)
+		initStr = initStr.replace("@[time]", SimpleDateFormat("HH:mm:ss").format(Date()))
 		
 		it.html(initStr)
 	}

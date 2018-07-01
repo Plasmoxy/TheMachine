@@ -12,8 +12,8 @@ fun main(args: Array<String>) {
 	println("numbers : $numbers")
 	println("evens : $evens")
 	println("odds : $odds")
-	
-	
+
+
 	var name : String by observable("") { _, _, x -> println("The name is $x") }
 	name = "Seb"
 	

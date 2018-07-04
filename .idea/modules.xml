@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Clojure/HelloClojure/HelloClojure.iml" filepath="$PROJECT_DIR$/Clojure/HelloClojure/HelloClojure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Kotlin/KotlinDocs/KotlinDocs.iml" filepath="$PROJECT_DIR$/Kotlin/KotlinDocs/KotlinDocs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TheMachine.iml" filepath="$PROJECT_DIR$/TheMachine.iml" />
+    </modules>
+  </component>
+</project>

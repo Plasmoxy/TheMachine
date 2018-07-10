@@ -1,5 +1,5 @@
 
-class CompanionCore {
+private class CompanionCore {
 	
 	companion object {
 		val x = 4

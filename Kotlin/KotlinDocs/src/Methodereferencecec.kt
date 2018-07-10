@@ -1,6 +1,6 @@
 
 
-class Klasssssssss {
+private class Klasssssssss {
 	
 	val list = listOf(1, 2, 3, 4)
 	

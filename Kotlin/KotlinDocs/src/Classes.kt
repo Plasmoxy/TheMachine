@@ -1,4 +1,5 @@
-class Dog {
+
+private class Dog {
 	
 	val isDead get() = age >= 10
 	
@@ -12,7 +13,7 @@ class Dog {
 }
 
 
-interface IFaceAlpha {
+private interface IFaceAlpha {
 	
 	fun hello() {
 		println("HELLOO")
@@ -36,7 +37,7 @@ interface IFaceBeta {
 }
 
 
-class Everything : IFaceAlpha, IFaceBeta {
+private class Everything : IFaceAlpha, IFaceBeta {
 	
 	override fun both() {
 		super<IFaceAlpha>.both()

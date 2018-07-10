@@ -1,6 +1,6 @@
 
 // holder is both producer and consumer
-class Holder<T>(private var x: T) {
+private class Holder<T>(private var x: T) {
 	fun get(): T = x
 	fun set(a: T) {
 		x = a
@@ -8,7 +8,7 @@ class Holder<T>(private var x: T) {
 }
 
 
-fun holderCopy(from: Holder<out Any>, to: Holder<in Any>) {
+private fun holderCopy(from: Holder<out Any>, to: Holder<in Any>) {
 	to.set(from.get())
 }
 

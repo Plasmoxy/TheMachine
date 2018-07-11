@@ -1,4 +1,4 @@
-
+package ducks
 interface FlyBehavior { fun fly() }
 interface QuackBehavior { fun quack() }
 
@@ -87,6 +87,16 @@ open class RetardedDuck(name: String) : Duck(name) {
 	}
 }
 
+// hunters have a whistle that mimics duck quacking
+// we can reuse the ducks.Quack here
+class DuckWhistle {
+	private val quackBehavior = Quack()
+	
+	fun whistle() {
+		quackBehavior.quack()
+	}
+}
+
 
 fun main(args: Array<String>) {
 	val d: Duck = RedDuck("Jack") // polymorphism works
@@ -97,4 +107,6 @@ fun main(args: Array<String>) {
 	println("achtung : apply roket")
 	d.flyBehavior = FlyWithRocket()
 	d.performFly()
+	
+	DuckWhistle().whistle()
 }

@@ -14,4 +14,6 @@ fun main(args: Array<String>) {
 	users[0] = User("Seb", 17)
 	
 	println(users)
+	
+	if ( lst.any { it > 1 } ) println("some are higher than 1")
 }

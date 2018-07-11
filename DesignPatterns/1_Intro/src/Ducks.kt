@@ -12,6 +12,12 @@ class FlyWithWings : FlyBehavior {
 	}
 }
 
+class FlyWithRocket : FlyBehavior {
+	override fun fly() {
+		println("IM FLYINT WITTT ROKEKTTEZZZZ XDDDDDDD")
+	}
+}
+
 class NoQuack : QuackBehavior {
 	override fun quack() {} // nope cant quack
 }
@@ -87,4 +93,8 @@ fun main(args: Array<String>) {
 	d.display()
 	d.performFly()
 	d.performQuack()
+	
+	println("achtung : apply roket")
+	d.flyBehavior = FlyWithRocket()
+	d.performFly()
 }

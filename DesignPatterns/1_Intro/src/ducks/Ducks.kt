@@ -1,6 +1,9 @@
+// STRATEGY DESIGN PATTERN here ....
+
 package ducks
 interface FlyBehavior { fun fly() }
 interface QuackBehavior { fun quack() }
+
 
 class FlyNoWay : FlyBehavior {
 	override fun fly() {} // nope cant fly

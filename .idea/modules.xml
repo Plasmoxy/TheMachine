@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DesignPatterns/1_Intro/1_Intro.iml" filepath="$PROJECT_DIR$/DesignPatterns/1_Intro/1_Intro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DesignPatterns/1_StrategyPattern/1_StrategyPattern.iml" filepath="$PROJECT_DIR$/DesignPatterns/1_StrategyPattern/1_StrategyPattern.iml" />
       <module fileurl="file://$PROJECT_DIR$/DesignPatterns/2_ObserverPattern/2_ObserverPattern.iml" filepath="$PROJECT_DIR$/DesignPatterns/2_ObserverPattern/2_ObserverPattern.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DesignPatterns/3_DecoratorPattern/3_DecoratorPattern.iml" filepath="$PROJECT_DIR$/DesignPatterns/3_DecoratorPattern/3_DecoratorPattern.iml" />
       <module fileurl="file://$PROJECT_DIR$/Kotlin/JavaFX/AutistPad/AutistPad.iml" filepath="$PROJECT_DIR$/Kotlin/JavaFX/AutistPad/AutistPad.iml" />
       <module fileurl="file://$PROJECT_DIR$/Clojure/HelloClojure/HelloClojure.iml" filepath="$PROJECT_DIR$/Clojure/HelloClojure/HelloClojure.iml" />
       <module fileurl="file://$PROJECT_DIR$/Kotlin/KotlinDocs/KotlinDocs.iml" filepath="$PROJECT_DIR$/Kotlin/KotlinDocs/KotlinDocs.iml" />

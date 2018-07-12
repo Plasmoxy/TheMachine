@@ -1,8 +1,21 @@
+import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.concurrent.thread
+
 fun main(args: Array<String>) {
 	
-	var weatherSource = WeatherSource()
+	val active = AtomicBoolean(true)
+	
+	val weatherSource = WeatherSource()
 	ConsoleWeatherDisplay(weatherSource) // self-attaches, subject keeps reference
 	
-	weatherSource.testSetWeather(30f, 0.5f)
+	thread {
+		while (active.get()) {
+			weatherSource.testSetWeather(Math.random().toFloat()*40, Math.random().toFloat())
+			Thread.sleep(1000)
+		}
+	}
+	
+	readLine()
+	active.set(false)
 	
 }

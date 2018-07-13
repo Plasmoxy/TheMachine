@@ -4,12 +4,12 @@ package coffee
 // except i wrote it through Kotlin properties
 // and i dont know how to use them so i cant add stuff xDDDDD
 
-// ---- UTILS ----
-private fun getPriceFromMap(map: Map<Pair<String, BeverageSize>, Double>, name: String, size: BeverageSize)
-		= map[Pair(name, size)] ?: throw Exception("Beverage not in map dude")
-
-// ---- DATA ----
 enum class BeverageSize { SMALL, BIG, GRAND }
+data class Item(val name: String, val size: BeverageSize)
+
+// ---- FUNCTIONS ----
+private fun getItemPrice(i: Item)
+		= itemPrices[i] ?: throw Exception("Beverage not in map dude")
 
 // ---- BASE CLASSES ----
 
@@ -30,10 +30,13 @@ interface IBeverage {
 }
 
 // decorator base for condiments, IS A Beverage -> inheritance for type matching
-abstract class CondimentDecorator : Beverage() {
-	// require condiment decorators to REIMPLEMENT description property
+abstract class CondimentDecorator(protected val beverage: Beverage) : Beverage() {
+	
+	// require condiment decorators to REIMPLEMENT description property ( delegate them)
 	override abstract val description: String
 	override abstract val name: String
+	override abstract val size: BeverageSize
+	override abstract val cost: Double
 }
 
 // ---- BEVERAGES ----
@@ -42,57 +45,47 @@ class Espresso(override val size: BeverageSize) : Beverage() {
 	override val description = "Espresso - a good coffee very nice"
 	override val name = "Espresso"
 	override val cost: Double
-		get() = getPriceFromMap(beveragePrices, name, size)
+		get() = getItemPrice(Item(name, size))
 }
 
 class HouseBlend(override val size: BeverageSize) : Beverage() {
 	override val description = "House blend coffeee"
+	override val name = "HouseBlend"
 	override val cost: Double
-		get() = when(size) {
-			BeverageSize.SMALL -> 0.70
-			BeverageSize.BIG -> 1.50
-			BeverageSize.GRAND -> 3.00
-		}
+		get() = getItemPrice(Item(name, size))
 }
 
 // ---- DECORATORS ----
 
 // mocha decorator
-class Mocha(val beverage: Beverage) : CondimentDecorator() {
+class Mocha(beverage: Beverage) : CondimentDecorator(beverage) {
 	
-	private val condimentName = "Mocha"
+	private val condimentName = "Mocha" // just private, just for internal stuff and getting from map
+	
+	override val name get() = beverage.name // delegate name of beverage
+	override val size get() = beverage.size // delegate
 	
 	// DELEGATE beverage properties to Mocha's properties and DECORATE ( append ) them with mocha custom properties
-	override val description: String
+	override val description
 		get() = beverage.description + ", with mocha"
 	
-	override val name: String get() = beverage.name // delegate
-	
-	
 	// alternative mocha costs for different beverages
-	override val cost: Double
-		get() = beverage.cost + when(beverage.size) { // IMPORTANT: use beverage property rather than self properties !!!
-			BeverageSize.SMALL -> 0.20
-			BeverageSize.BIG -> 0.25
-			BeverageSize.GRAND -> 0.40
-		}
+	// CHAIN this decorator property to previous beverage delegate
+	override val cost
+		get() = beverage.cost + getItemPrice(Item(condimentName, beverage.size))
 }
 
-class Whip(val beverage: Beverage) : CondimentDecorator() {
+class Whip(beverage: Beverage) : CondimentDecorator(beverage) {
 	
 	private val condimentName = "Whip"
+	override val name get() = beverage.name // delegate
+	override val size get() = beverage.size
 	
 	override val description: String
 		get() = beverage.description + ", with whip"
 	
-	override val name: String get() = beverage.name // delegate
-	
 	// alternative whip costs for different beverages
 	override val cost: Double
-		get() = beverage.cost + when (beverage.size) {
-			BeverageSize.SMALL -> 0.10
-			BeverageSize.BIG -> 0.20
-			BeverageSize.GRAND -> 0.50
-		}
+		get() = beverage.cost + getItemPrice(Item(condimentName, beverage.size))
 }
 

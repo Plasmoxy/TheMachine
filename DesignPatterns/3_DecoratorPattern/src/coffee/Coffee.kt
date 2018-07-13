@@ -1,8 +1,10 @@
 package coffee
 
 // headfirst design patterns starbuzz coffeeshop example
+// based on Strategy and Decorator patterns
 // except i wrote it through Kotlin properties
 // and i dont know how to use them so i cant add stuff xDDDDD
+// edit: I love kotlin properties, makes getters and setters so ez and no bullshit code ^^
 
 enum class BeverageSize { SMALL, BIG, GRAND }
 data class Item(val name: String, val size: BeverageSize)
@@ -32,7 +34,7 @@ interface IBeverage {
 // decorator base for condiments, IS A Beverage -> inheritance for type matching
 abstract class CondimentDecorator(protected val beverage: Beverage) : Beverage() {
 	
-	// require condiment decorators to REIMPLEMENT description property ( delegate them)
+	// require condiment decorators to REIMPLEMENT properties ( should delegate them to beverage val )
 	override abstract val description: String
 	override abstract val name: String
 	override abstract val size: BeverageSize
@@ -70,7 +72,7 @@ class Mocha(beverage: Beverage) : CondimentDecorator(beverage) {
 		get() = beverage.description + ", with mocha"
 	
 	// alternative mocha costs for different beverages
-	// CHAIN this decorator property to previous beverage delegate
+	// CHAIN this decorator property to previous beverage delegate cost
 	override val cost
 		get() = beverage.cost + getItemPrice(Item(condimentName, beverage.size))
 }
@@ -78,6 +80,7 @@ class Mocha(beverage: Beverage) : CondimentDecorator(beverage) {
 class Whip(beverage: Beverage) : CondimentDecorator(beverage) {
 	
 	private val condimentName = "Whip"
+	
 	override val name get() = beverage.name // delegate
 	override val size get() = beverage.size
 	

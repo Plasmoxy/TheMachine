@@ -2,7 +2,7 @@ package coffee
 private fun displayBeverage(b: Beverage) {
 	println("-- coffee.Beverage --\n" +
 			"   description: ${b.description}\n" +
-			"   cost: ${b.cost}")
+			"   cost: ${b.cost} €")
 }
 
 fun main(args: Array<String>) {
@@ -18,5 +18,5 @@ fun main(args: Array<String>) {
 	// !! code is programmed to INTERFACE, not IMPLEMENTATION ( to abstract class in this case )
 	// even if the beverage is decorated, the decorators are transparent to the type
 	displayBeverage(b1)
-
+	
 }

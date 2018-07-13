@@ -7,10 +7,14 @@ package coffee
 
 // ---- BASE CLASSES ----
 
+enum class BeverageSize { SMALL, BIG, GRAND }
+
 // base type class for all beverages with one property implemented ( logically "unknown" )
 abstract class Beverage {
-	open val description = "Unknown coffee.Beverage"
+	open val description = "Unknown Beverage"
 	abstract val cost: Double
+	
+	open val size: BeverageSize = BeverageSize.SMALL
 }
 
 // ??? alternative : property interface
@@ -20,7 +24,7 @@ interface IBeverage {
 	val cost: Double
 }
 
-// decorator base for condiments, IS A coffee.Beverage -> inheritance for type matching
+// decorator base for condiments, IS A Beverage -> inheritance for type matching
 abstract class CondimentDecorator : Beverage() {
 	// require condiment decorators to REIMPLEMENT description property
 	override abstract val description: String
@@ -28,31 +32,54 @@ abstract class CondimentDecorator : Beverage() {
 
 // ---- BEVERAGES ----
 
-class Espresso : Beverage() {
-	override val description = "coffee.Espresso - a good coffee very nice"
-	override val cost = 1.99
+class Espresso(override val size: BeverageSize) : Beverage() {
+	override val description = "Espresso - a good coffee very nice"
+	override val cost: Double
+		get() = when(size) {
+			BeverageSize.SMALL -> 0.50
+			BeverageSize.BIG -> 1.00
+			BeverageSize.GRAND -> 2.00
+		}
 }
 
-class HouseBlend : Beverage() {
+class HouseBlend(override val size: BeverageSize) : Beverage() {
 	override val description = "House blend coffeee"
-	override val cost = 0.89
+	override val cost: Double
+		get() = when(size) {
+			BeverageSize.SMALL -> 0.70
+			BeverageSize.BIG -> 1.50
+			BeverageSize.GRAND -> 3.00
+		}
 }
 
 // ---- DECORATORS ----
 
 // mocha decorator
 class Mocha(val beverage: Beverage) : CondimentDecorator() {
-	// DELEGATE beverage properties to coffee.Mocha's properties and DECORATE ( append ) them with mocha custom properties
+	// DELEGATE beverage properties to Mocha's properties and DECORATE ( append ) them with mocha custom properties
 	override val description: String
 		get() = beverage.description + ", with mocha"
+	
+	
+	// alternative mocha costs for different beverages
 	override val cost: Double
-		get() = beverage.cost + 0.20
+		get() = beverage.cost + when(beverage.size) { // IMPORTANT: use beverage property rather than self properties !!!
+			BeverageSize.SMALL -> 0.20
+			BeverageSize.BIG -> 0.25
+			BeverageSize.GRAND -> 0.40
+		}
 }
 
 class Whip(val beverage: Beverage) : CondimentDecorator() {
 	override val description: String
 		get() = beverage.description + ", with whip"
+	
+	// alternative whip costs for different beverages
 	override val cost: Double
-		get() = beverage.cost + 0.10
+		get() = beverage.cost + when (beverage.size) {
+			BeverageSize.SMALL -> 0.10
+			BeverageSize.BIG -> 0.20
+			BeverageSize.GRAND -> 0.50
+		}
 }
 

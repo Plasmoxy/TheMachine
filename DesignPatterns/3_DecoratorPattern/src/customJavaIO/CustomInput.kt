@@ -1,9 +1,7 @@
 package customJavaIO
 
 import com.sun.xml.internal.messaging.saaj.packaging.mime.util.LineInputStream
-import java.io.BufferedInputStream
-import java.io.FilterInputStream
-import java.io.InputStream
+import java.io.*
 
 // filterinputstream is a decorator
 class KapsLokInputStream(istream: InputStream) : FilterInputStream(istream) {

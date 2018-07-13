@@ -7,10 +7,10 @@ private fun displayBeverage(b: Beverage) {
 
 fun main(args: Array<String>) {
 	
-	var b1: Beverage = Espresso()
+	var b1: Beverage = Espresso(BeverageSize.SMALL)
 	displayBeverage(b1)
 	
-	var b2: Beverage = HouseBlend()
+	var b2: Beverage = HouseBlend(BeverageSize.BIG)
 	displayBeverage(b2)
 	
 	b1 = Whip(Mocha(b1)) // add mocha and whip

@@ -1,23 +1,26 @@
+package coffee
+
 // headfirst design patterns starbuzz coffeeshop example
 // except i wrote it through Kotlin properties
+// and i dont know how to use them so i cant add stuff xDDDDD
 
 
 // ---- BASE CLASSES ----
 
 // base type class for all beverages with one property implemented ( logically "unknown" )
 abstract class Beverage {
-	open val description = "Unknown Beverage"
+	open val description = "Unknown coffee.Beverage"
 	abstract val cost: Double
 }
 
 // ??? alternative : property interface
 interface IBeverage {
 	val description: String
-		get() = "Unknown Beverage"
+		get() = "Unknown coffee.Beverage"
 	val cost: Double
 }
 
-// decorator base for condiments, IS A Beverage -> inheritance for type matching
+// decorator base for condiments, IS A coffee.Beverage -> inheritance for type matching
 abstract class CondimentDecorator : Beverage() {
 	// require condiment decorators to REIMPLEMENT description property
 	override abstract val description: String
@@ -26,7 +29,7 @@ abstract class CondimentDecorator : Beverage() {
 // ---- BEVERAGES ----
 
 class Espresso : Beverage() {
-	override val description = "Espresso - a good coffee very nice"
+	override val description = "coffee.Espresso - a good coffee very nice"
 	override val cost = 1.99
 }
 
@@ -39,7 +42,7 @@ class HouseBlend : Beverage() {
 
 // mocha decorator
 class Mocha(val beverage: Beverage) : CondimentDecorator() {
-	// DELEGATE beverage properties to Mocha's properties and DECORATE ( append ) them with mocha custom properties
+	// DELEGATE beverage properties to coffee.Mocha's properties and DECORATE ( append ) them with mocha custom properties
 	override val description: String
 		get() = beverage.description + ", with mocha"
 	override val cost: Double

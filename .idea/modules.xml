@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/DesignPatterns/4_FactoryPattern/4_FactoryPattern.iml" filepath="$PROJECT_DIR$/DesignPatterns/4_FactoryPattern/4_FactoryPattern.iml" />
       <module fileurl="file://$PROJECT_DIR$/Kotlin/JavaFX/AutistPad/AutistPad.iml" filepath="$PROJECT_DIR$/Kotlin/JavaFX/AutistPad/AutistPad.iml" />
       <module fileurl="file://$PROJECT_DIR$/Clojure/HelloClojure/HelloClojure.iml" filepath="$PROJECT_DIR$/Clojure/HelloClojure/HelloClojure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Javalin/juncc/JavalinResourcePathTest/JavalinResourcePathTest.iml" filepath="$PROJECT_DIR$/Javalin/juncc/JavalinResourcePathTest/JavalinResourcePathTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/Kotlin/KotlinDocs/KotlinDocs.iml" filepath="$PROJECT_DIR$/Kotlin/KotlinDocs/KotlinDocs.iml" />
       <module fileurl="file://$PROJECT_DIR$/TheMachine.iml" filepath="$PROJECT_DIR$/TheMachine.iml" />
       <module fileurl="file://$PROJECT_DIR$/Javalin/juncc/phantom/phantom.iml" filepath="$PROJECT_DIR$/Javalin/juncc/phantom/phantom.iml" />

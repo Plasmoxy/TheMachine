@@ -1,5 +1,5 @@
-fun main(args: Array<String>) {
-
+fun main(args: Array<String>){
+	
 	val numbers = mutableListOf(1, 2, 3, 4)
 	
 	val iterator = numbers.listIterator()

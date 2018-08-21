@@ -3,7 +3,7 @@ import java.io.File
 fun File.rename(name: String) = renameTo(File(absoluteFile.parent, name))
 
 fun list(root: File, level: Int) {
-    
+
     // captures level through closure
     fun padding() = (0 until level).forEach { print("  ") }
 
@@ -11,8 +11,6 @@ fun list(root: File, level: Int) {
         println("This isn't a directory !")
         return
     }
-
-    
 
     val all = root.listFiles()
     

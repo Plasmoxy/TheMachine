@@ -1,16 +1,15 @@
 package simpleOperations
 
 import DemoMongoDB
-import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
 import model.Human
-import org.litote.kmongo.findOneById
-import org.litote.kmongo.getCollection
-import org.litote.kmongo.toId
+import org.litote.kmongo.*
 
 
 fun main(args: Array<String>) {
 	
-	val objs = DemoMongoDB.getCollection<Human>("humans")
-	
+	val humans = DemoMongoDB.getCollection<Human>("humans")
+	val seb = humans.findOne(Human::name eq("Seb")) ?: throw Exception("no human with that name")
+	seb.age += 1
+	humans.updateOneById(seb._id, seb)
 	
 }

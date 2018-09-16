@@ -11,20 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Core.kt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Core.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="13" column="8" lean-forward="true" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
-              <folding>
-                <element signature="e#0#67#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -52,7 +39,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="358" />
     <option name="y" value="76" />
     <option name="width" value="1390" />
@@ -72,11 +59,6 @@
             <path>
               <item name="SimpleWebApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="SimpleWebApp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SimpleWebApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SimpleWebApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -160,8 +142,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="358" y="76" width="1390" height="853" extended-state="1" />
-    <editor active="true" />
+    <frame x="358" y="76" width="1390" height="853" extended-state="0" />
     <layout>
       <window_info anchor="right" id="Palette" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -208,6 +189,13 @@
           <folding>
             <element signature="e#0#67#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
         </state>
       </provider>
     </entry>

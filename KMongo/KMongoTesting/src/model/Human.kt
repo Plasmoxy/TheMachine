@@ -6,5 +6,6 @@ import org.litote.kmongo.newId
 
 data class Human(
 		val name: String,
-		val age: Int = 0) {
+		val age: Int = 0,
+		@BsonId val _id: Id<Human> = newId()) {
 }

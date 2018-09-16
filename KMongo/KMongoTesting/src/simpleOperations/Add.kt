@@ -1,17 +1,23 @@
 package simpleOperations
 
 import DemoMongoDB
+import com.mongodb.MongoWriteException
 import model.Human
 import org.litote.kmongo.*
 
 fun main(args: Array<String>) {
 
 	val humans = DemoMongoDB.getCollection<Human>("humans")
-	humans.insertOne(
-			Human(
-					"Seb",
-					(Math.random()*76).toInt()
-			)
-	)
+	
+	try {
+		humans.insertOne(
+				Human(
+						"Ján",
+						(Math.random()*76).toInt()
+				)
+		)
+	} catch(ex: MongoWriteException) {
+		println("user with that index name already exists")
+	}
 
 }

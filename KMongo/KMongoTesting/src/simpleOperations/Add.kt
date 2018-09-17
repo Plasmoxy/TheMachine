@@ -1,7 +1,6 @@
 package simpleOperations
 
 import DemoMongoDB
-import com.mongodb.MongoWriteException
 import model.Human
 import org.litote.kmongo.*
 

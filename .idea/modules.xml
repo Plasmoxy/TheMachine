@@ -23,6 +23,7 @@
       <module fileurl="file://$PROJECT_DIR$/_Stuff/files/StuffBeforeName/StuffBeforeName.iml" filepath="$PROJECT_DIR$/_Stuff/files/StuffBeforeName/StuffBeforeName.iml" />
       <module fileurl="file://$PROJECT_DIR$/Kotlin/juncc/TestTest/TestTest.iml" filepath="$PROJECT_DIR$/Kotlin/juncc/TestTest/TestTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/TheMachine.iml" filepath="$PROJECT_DIR$/TheMachine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Cryptography/UUIDTest/UUIDTest.iml" filepath="$PROJECT_DIR$/Cryptography/UUIDTest/UUIDTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/Javalin/juncc/phantom/phantom.iml" filepath="$PROJECT_DIR$/Javalin/juncc/phantom/phantom.iml" />
       <module fileurl="file://$PROJECT_DIR$/Scala/testtt/testtt.iml" filepath="$PROJECT_DIR$/Scala/testtt/testtt.iml" />
     </modules>

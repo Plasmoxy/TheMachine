@@ -2,6 +2,7 @@
 _out
 _files
 machine.properties
+auth.kt
 
 
 # Created by https://www.gitignore.io/api/java,kotlin,gradle,intellij
@@ -141,3 +142,4 @@ gradle-app.setting
 
 
 # End of https://www.gitignore.io/api/java,kotlin,gradle,intellij
+exp_2019/src/main/kotlin/keksobox/auth.kt
